@@ -1,0 +1,84 @@
+<?php
+ /**
+ * GoMage Advanced Navigation Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.0
+ * @since        Class available since Release 2.0
+ */
+?>
+<?php
+    $levelAnterior = -1;
+    $usaConector = false;
+    $espacamento = false;
+    $ignoraMargin = false;
+?>
+<?php
+/*
+foreach ($this->getItems() as $_item) {
+    echo "<BR>cat: ".$_item->getLabel();
+}
+exit;
+*/
+?>
+<ol class="<?php if($this->canShowCheckbox()):?>gan-list-checkbox<?php endif;?> <?php if($this->getFilterType()==GoMage_Navigation_Model_Layer::FILTER_TYPE_DEFAULT_INBLOCK):?>gan-inblock-list<?php endif;?>" <?php if($this->getFilterType()==GoMage_Navigation_Model_Layer::FILTER_TYPE_DEFAULT_INBLOCK):?>style="height:<?php echo $this->getInBlockHeight(); ?>px;"<?php endif;?>>
+<?php $_top_level = null; ?>
+<?php foreach ($this->getItems() as $_item): ?>
+    <?php $level = $_item->getLevel()-2; ?>
+    <?php if (!$_top_level) $_top_level = $level; ?>
+    <?php if ($level > 5) continue; ?>
+    <!--
+    <li class="item-level-<?php echo $level; ?> " style="padding-left: <?php echo 10*($level - $_top_level); ?>px;" >
+    -->
+    <?php
+	if($usaConector) {
+	    $classConector = "li-conector";
+	    $usaConector = false;
+	}
+	else {
+	    $classConector = "";
+	}
+	if($level == 3 && $levelAnterior != 3){
+	    $classEspacamento = "li-espacamento";
+	    $espacamento = true;
+	}
+	else {
+	    $classEspacamento = "";
+	}
+	if($level == 2 && $levelAnterior == 2){
+	    $classIgnoraMargin = "li-ignora-margin";
+	    $ignoraMargin = true;
+	}
+	else {
+	    $classIgnoraMargin = "";
+	}
+	
+    ?>
+    <li class="item-level-<?php echo $level; ?> <?php echo $classConector.' '.$classEspacamento.' '.$classIgnoraMargin; ?>">
+        <?php if($level == 2) echo '<div class="category-item">'; ?>
+	<?php if (($_item->getCount() > 0) || $_item->getHasChild() || $_item->getActive()): ?>
+	    <a rel="<?php echo $_item->getUniqueId(); ?>"class="category-label <?php if($level == 2) echo "category "; ?><?php if($_item->getActive()): echo "active"; endif;?>" <?php if($this->ajaxEnabled()):?> onclick="setNavigationUrl('<?php echo urlencode($_item->getUniqueUrl(true)) ?>'); return false;" <?php endif;?> href="<?php echo ($_item->getUniqueUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+	    
+	<?php else: ?>
+	    <span class="category-label">
+		<?php echo $_item->getLabel(); ?>
+	    </span>
+	<?php endif; ?>
+	<?php if($level == 2) echo '</div>'; ?>
+    	<?php /*if(!$_item->getActive()):?>
+        (<?php echo $_item->getCount() ?>)
+        <?php endif;*/ ?>
+	
+	<?php
+	    $levelAnterior = $level;
+	    if($level == 2) {
+		$usaConector = true;
+	    }
+	?>
+    </li>
+<?php endforeach ?>
+</ol>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<logging>
+    <adminhtml_customer_attribute translate="label">
+        <label>Manage Customer Attributes</label>
+        <expected_models>
+            <customer__attribute/>
+        </expected_models>
+        <actions>
+            <adminhtml_customer_attribute_edit>
+                <action>view</action>
+            </adminhtml_customer_attribute_edit>
+
+            <adminhtml_customer_attribute_save>
+                <action>save</action>
+            </adminhtml_customer_attribute_save>
+
+            <adminhtml_customer_attribute_delete>
+                <action>delete</action>
+            </adminhtml_customer_attribute_delete>
+        </actions>
+    </adminhtml_customer_attribute>
+    <adminhtml_customer_address_attribute translate="label">
+        <label>Manage Customer Address Attributes</label>
+        <expected_models>
+            <customer__attribute/>
+        </expected_models>
+        <actions>
+            <adminhtml_customer_address_attribute_edit>
+                <action>view</action>
+            </adminhtml_customer_address_attribute_edit>
+
+            <adminhtml_customer_address_attribute_save>
+                <action>save</action>
+            </adminhtml_customer_address_attribute_save>
+
+            <adminhtml_customer_address_attribute_delete>
+                <action>delete</action>
+            </adminhtml_customer_address_attribute_delete>
+        </actions>
+    </adminhtml_customer_address_attribute>
+</logging>

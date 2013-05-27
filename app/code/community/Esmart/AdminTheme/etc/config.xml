@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Esmart_AdminTheme>
+            <version>0.1.0</version>
+        </Esmart_AdminTheme>
+    </modules>
+    <stores>
+        <admin>
+            <design>
+                <theme>
+                    <default>go</default>
+                    <skin>esmart</skin>
+                    <layout>esmart</layout>
+                    <template>esmart</template>
+                    <locale>esmart</locale>
+                </theme>
+            </design>
+        </admin>
+    </stores>
+</config>

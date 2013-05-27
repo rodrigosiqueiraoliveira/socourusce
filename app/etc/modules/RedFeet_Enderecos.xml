@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <RedFeet_Enderecos>
+            <active>true</active>
+            <codePool>local</codePool>
+        </RedFeet_Enderecos>
+    </modules>
+</config>

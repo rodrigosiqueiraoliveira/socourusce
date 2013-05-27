@@ -1,0 +1,422 @@
+<?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+    $_customer = Mage::helper('customer')->getCustomer();
+    $_product    = $this->getProduct();
+    $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+    $prod = Mage::getModel('catalog/product')->load($_product->getId());
+    if($_customer->getGroupId() == 4) { ?>
+        <div class="grid-produto">
+            <!--<div id='loader'></div>-->
+            <div id="spinner" class="spinner" style="display:none;">
+                <img id="img-spinner" src="http://lojaellan.redfeet.com.br/skin/frontend/default/default/images/ajax-loader.gif" alt=""/>
+                <p></p>
+            </div>
+            <div id='modal-overlay'></div>
+            
+            <table class="grade-produtos" style="float: left; margin-bottom: 15px; width: 100%;">
+                <tr><td style="color: #666666; font-size: 12px;">
+                    Digite a quantidade por cor e tamanho
+                </td></tr>
+            </table>
+            
+            <table id="grade-produtos" class="grade-produtos">
+    <?php
+        $_gallery = Mage::getModel('catalog/product')->load($prod->getId())->getMediaGalleryImages();
+        
+        //pegar produtos filhos
+        $childProducts = Mage::getModel('catalog/product_type_configurable')
+            ->getUsedProducts(null,$prod);
+            
+        //transformar um objeto em array
+        $array = array();
+        for ($i = 0; $i < count($childProducts); $i++) {
+            $array[] = get_object_vars($childProducts[$i]);
+        }
+        
+        //filtra elementos com qty > 0 e is_in_stock == 1
+        $key = array_keys($array);
+        $arr = array();
+        for ($i = 0; $i < sizeof($key); $i++) {
+            if($array[$i][_data][stock_item][qty] > 0 && $array[$i][_data][is_in_stock] == 1)
+                $arr[] = $array[$i];
+        }
+        
+        //enquanto houver elementos no array
+        $child_aux = array();
+        $count = 0;
+        while(isset($arr) && !empty($arr)) {
+            $last_child_sku = "";
+            
+            //agrupando elementos de acordo com o sku do produto filho
+            foreach($arr as $indice => $valor) {
+                $s = explode("-", $arr[$indice][_data][sku]);
+                $s_combined = $s[0]."-".$s[1];
+                if((empty($last_child_sku)) || ($s_combined == $last_child_sku && !empty($last_child_sku))) {
+                   $child_aux[] = $arr[$indice];
+                   $last_child_sku = $s_combined;
+                   unset($arr[$indice]);
+                }
+            }
+            $count++;
+            if($count > 1000) break;
+        }
+        
+        //print atributos tamanho
+        
+        foreach($_attributes as $_attribute):
+            echo "
+                <tr><input type='hidden' id='attribute{$_attribute->getAttributeId()}' name='super_attribute[{$_attribute->getAttributeId()}]' value='{$_attribute->getAttributeId()}' />
+            ";
+            /*
+            if($_attribute->getLabel() == "Tamanho") {
+                $attribute = $_product->getResource()->getAttribute('tamanho');
+                $frontend = $attribute->getFrontend();
+                $selectOptions = $frontend->getSelectOptions();
+                //echo "<td></td>";
+                foreach($selectOptions as $option) {
+                    if(!empty($option["label"])) {
+                        //echo "<td>".$option["label"]."</td>";
+                    }
+                }
+                //echo "<br />";
+            }
+            */
+            echo "</tr>";
+        endforeach;
+        
+        
+        $arr_final = array();
+        //ordenando tamanhos em um novo array
+        if(count($_gallery) > 0){
+        //while(isset($child_aux) && !empty($child_aux)) {
+            foreach($_gallery as $_image):
+                foreach ($child_aux as $indice => $valor) {
+                    $dado_child = explode("-", $child_aux[$indice][_data][sku]);
+                    if(sizeof($dado_child) == 3)
+                        $etapa = 2;
+                    if(sizeof($dado_child) == 4)
+                        $etapa = 3;
+                    if(sizeof($dado_child) == 5)
+                        $etapa = 4;
+                    if($dado_child[$etapa] == "PP" && $dado_child[$etapa-1] == $_image->getLabel()) {
+                        $arr_final[] = $child_aux[$indice];
+                        unset($child_aux[$indice]);
+                    }
+                }
+                foreach ($child_aux as $indice => $valor) {
+                    $dado_child = explode("-", $child_aux[$indice][_data][sku]);
+                    if(sizeof($dado_child) == 4)
+                        $etapa = 3;
+                    if(sizeof($dado_child) == 5)
+                        $etapa = 4;
+                    if($dado_child[$etapa] == "P" && $dado_child[$etapa-1] == $_image->getLabel()) {
+                        $arr_final[] = $child_aux[$indice];
+                        unset($child_aux[$indice]);
+                    }
+                }
+                foreach ($child_aux as $indice => $valor) {
+                    $dado_child = explode("-", $child_aux[$indice][_data][sku]);
+                    if(sizeof($dado_child) == 4)
+                        $etapa = 3;
+                    if(sizeof($dado_child) == 5)
+                        $etapa = 4;
+                    if($dado_child[$etapa] == "M" && $dado_child[$etapa-1] == $_image->getLabel()) {
+                        $arr_final[] = $child_aux[$indice];
+                        unset($child_aux[$indice]);
+                    }
+                }
+                foreach ($child_aux as $indice => $valor) {
+                    $dado_child = explode("-", $child_aux[$indice][_data][sku]);
+                    if(sizeof($dado_child) == 4)
+                        $etapa = 3;
+                    if(sizeof($dado_child) == 5)
+                        $etapa = 4;
+                    if($dado_child[$etapa] == "G" && $dado_child[$etapa-1] == $_image->getLabel()) {
+                        $arr_final[] = $child_aux[$indice];
+                        unset($child_aux[$indice]);
+                    }
+                }
+                foreach ($child_aux as $indice => $valor) {
+                    $dado_child = explode("-", $child_aux[$indice][_data][sku]);
+                    if(sizeof($dado_child) == 4)
+                        $etapa = 3;
+                    if(sizeof($dado_child) == 5)
+                        $etapa = 4;
+                    if($dado_child[$etapa] == "GG" && $dado_child[$etapa-1] == $_image->getLabel()) {
+                        $arr_final[] = $child_aux[$indice];
+                        unset($child_aux[$indice]);
+                    }
+                }
+            endforeach;
+        }
+        
+        //print imagens e campos de quantidades
+        //echo "<form id='first_form' method='POST' action='return false;'><input type='hidden' id='count_qnt' name='count_qnt' value='999' /></form>";
+        
+        $arrayCoresDisponiveis = array();
+        foreach($arr_final as $indice => $valor) {
+            $dado_child = explode("-", $arr_final[$indice]["_data"]["sku"]);
+            if(!in_array($dado_child[1], $arrayCoresDisponiveis)) $arrayCoresDisponiveis[] = $dado_child[1];
+        }
+        
+        foreach($_gallery as $_image) { ?>
+        <tr>
+            <?php if(in_array($_image->getLabel(), $arrayCoresDisponiveis)) :?>
+            <td>
+               <img src="<?=$this->helper('catalog/image')->init($prod, 'thumbnail', $_image->getFile())->resize(30); ?>" width="30" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>" /> 
+            </td>
+            <?php endif; ?>
+            <?php
+            
+            $array_produtos_verificar_tamanhos_existentes = array();
+            foreach($arr_final as $indice => $valor) {
+                $dado_child = explode("-", $arr_final[$indice]["_data"]["sku"]);
+                if(sizeof($dado_child) == 3)
+                    $etapa = 2;
+                if(sizeof($dado_child) == 4)
+                    $etapa = 3;
+                if(sizeof($dado_child) == 5)
+                    $etapa = 4;
+                $count_prod = 1;
+                if($dado_child[$etapa-1] == $_image->getLabel()) {
+                    
+                    $classProd = str_replace(' ', '-', strtolower('produto-'.$dado_child[count($dado_child)-2].'-'.$dado_child[count($dado_child)-1]));
+                    foreach($_attributes as $_attribute):
+                        if($_attribute->getLabel() == "Tamanho" || $_attribute->getLabel() == "TAMANHO") {
+                            $attribute = $_product->getResource()->getAttribute('tamanho_teste');
+                            $frontend = $attribute->getFrontend();
+                            $selectOptions = $frontend->getSelectOptions();
+                            foreach($selectOptions as $option) {
+                                if($option["label"] == $dado_child[$etapa]) {
+                                    $model_tier = Mage::getModel('catalog/product')->load($arr_final[$indice]["_data"]["parent_id"])->getData();
+                                    foreach($model_tier["tier_price"] as $tiers) {
+                                        if($tiers["cust_group"] == $customer['group_id']) {
+                                            $preco = $tiers["price"];
+                                        }
+                                    }
+                                    if(empty($preco))
+                                        $preco = $_product->getPrice();
+                                        
+                                    $array_produtos_verificar_tamanhos_existentes[] = $dado_child[$etapa];
+            ?>
+                                    <td class="field-attr">
+                                        <center>
+                                        <?php echo $dado_child[$etapa] ?>
+                                        <!-- função atualizaQtdeProduto se encontra no: -->
+                                        <!-- redfeet/template/catalog/product/view.phtml-->
+                                        <input type="text" class="identificador produto-qty grid-input-qtde" rel="<?php echo $classProd; ?>" name="produto-qty" title="Qty" size="2" maxlength="4" onblur="atualizaQtdeProduto(this);" />
+                                        <script type="text/javascript">
+                                            jQuery(document).ready(function(){
+                                                jQuery('#product-view-form-container').append('<form class="form-prod form-<?php echo $classProd; ?>" method="POST" action="return false;"><input type="hidden" name="id_produto" value="<?php echo $arr_final[$indice]["_data"]["parent_id"]; ?>" /><input type="hidden" name="cor" value="<?php echo $arr_final[$indice]["_data"]["cor_teste"]; ?>" /><input type="hidden" name="tam" value="<?php echo $arr_final[$indice]["_data"]["tamanho_teste"]; ?>" /><input type="text" id="qtyy" name="qtyy" title="Qty" size="2" maxlength="2" class="grid-input-qtde identificador_<?php echo $dado_child[$etapa]; ?>" onblur="loadPage(this.form); loadQnt(\'<?php echo $dado_child[$etapa]; ?>\'); loadPrice(\'<?php echo $preco; ?>\',\'<?php echo $dado_child[$etapa]; ?>\');" /></form>');
+                                            });
+                                        </script>
+                                        </center>
+                                    </td>
+            <?php
+                                }
+                            }
+                        }
+                    endforeach;
+                }
+            }
+        echo "</tr>";    
+        }
+        echo "</table>
+            <div id='loadFields'>
+            </div>
+        ";
+    echo "</div>";
+    ?>
+    
+    <div id="divResultado">
+        <?php
+            $displayStyle = "table-row";
+            foreach($arr_final as $_child) {
+                $verific_item = explode("-", $_child["_data"]["sku"]);
+                $verific_item = $verific_item[$etapa];
+                if($verific_item == "PP")
+                    $display_parte1 = $displayStyle;
+                else {
+                    if($display_parte1 != $displayStyle)
+                        $display_parte1 = "none";
+                }
+                if($verific_item == "P")
+                    $display_parte2 = $displayStyle;
+                else {
+                    if($display_parte2 != $displayStyle)
+                        $display_parte2 = "none";
+                }
+                if($verific_item == "M")
+                    $display_parte3 = $displayStyle;
+                else {
+                    if($display_parte3 != $displayStyle)
+                        $display_parte3 = "none";
+                }
+                if($verific_item == "G")
+                    $display_parte4 = $displayStyle;
+                else {
+                    if($display_parte4 != $displayStyle)
+                        $display_parte4 = "none";
+                }
+                if($verific_item == "GG")
+                    $display_parte5 = $displayStyle;
+                else {
+                    if($display_parte5 != $displayStyle)
+                        $display_parte5 = "none";
+                }
+            }
+        ?>
+        <table id="grid-info">
+            <thead>
+                <tr>
+                    <th colspan="2"><span>QUANTIDADE</span></th>
+                    <th><span>PRE&Ccedil;O ATACADO</span></th>
+                    <th><span>SUBTOTAL</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="parte1" style="display:<?php echo $display_parte1; ?>;">
+                    <td><span class="grid-qtde-rowcol" id="grid-PP-quantidade1">PP</span></td>
+                    <td><span class="grid-qtde-rowcol" id="grid-PP-quantidade2">0</span></td>
+                    <td><span id="preco-atacado"><?php echo Mage::helper('core')->currency($preco) ?></span></td>
+                    <td><span id="subtotal-PP">R$0,00</span></td>
+                </tr>
+                <tr id="parte2" style="display:<?php echo $display_parte2; ?>">
+                    <td><span class="grid-qtde-rowcol"  id="grid-P-quantidade1">P</span></td>
+                    <td><span class="grid-qtde-rowcol"  id="grid-P-quantidade2">0</span></td>
+                    <td><span id="preco-atacado"><?php echo Mage::helper('core')->currency($preco) ?></span></td>
+                    <td><span id="subtotal-P">R$0,00</span></td>
+                </tr>
+                <tr id="parte3" style="display:<?php echo $display_parte3; ?>">
+                    <td><span class="grid-qtde-rowcol"  id="grid-M-quantidade1">M</span></td>
+                    <td><span class="grid-qtde-rowcol"  id="grid-M-quantidade2">0</span></td>
+                    <td><span id="preco-atacado"><?php echo Mage::helper('core')->currency($preco) ?></span></td>
+                    <td><span id="subtotal-M">R$0,00</span></td>
+                </tr>
+                <tr id="parte4" style="display:<?php echo $display_parte4; ?>">
+                    <td><span class="grid-qtde-rowcol"  id="grid-G-quantidade1">G</span></td>
+                    <td><span class="grid-qtde-rowcol"  id="grid-G-quantidade2">0</span></td>
+                    <td><span id="preco-atacado"><?php echo Mage::helper('core')->currency($preco) ?></span></td>
+                    <td><span id="subtotal-G">R$0,00</span></td>
+                </tr>
+                <tr id="parte5" style="display:<?php echo $display_parte5; ?>">
+                    <td><span class="grid-qtde-rowcol"  id="grid-GG-quantidade1">GG</span></td>
+                    <td><span class="grid-qtde-rowcol"  id="grid-GG-quantidade2">0</span></td>
+                    <td><span id="preco-atacado"><?php echo Mage::helper('core')->currency($preco) ?></span></td>
+                    <td><span id="subtotal-GG">R$0,00</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <style>
+        input[type="text"].readonly { background: #EEE; }
+    </style>
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            decorateGeneric(jQuery('#grade-produtos tr'), ['first','last']);
+            decorateGeneric(jQuery('#grid-info thead tr th'), ['first','last']);
+            decorateGeneric(jQuery('#grid-info tbody tr'), ['first','last']);
+            jQuery('#grade-produtos tr').each(function(){
+                decorateGeneric(jQuery(this).find('td'), ['first','last']);
+            });
+            jQuery('#grid-info tbody tr').each(function(){
+                decorateGeneric(jQuery(this).find('td'), ['first','last']);
+            });
+
+            jQuery('.produto-qty').mask('9?9');
+        });
+        
+        function loadPrice(price, tam){
+            var count = 0;
+            jQuery('.identificador_'+jQuery.trim(tam)).each(function(){
+                if(jQuery(this).val() != "") {
+                    count = count + parseInt(jQuery(this).val());
+                }
+            })
+            var total = count * price;
+            var total_format = number_format(total, 2, ",", "");
+            jQuery("#subtotal-"+tam).html('R$'+total_format);
+        }
+        
+        function loadQnt(tam) {
+            var count = 0;
+            jQuery('.identificador_'+jQuery.trim(tam)).each(function(){
+                // jQuery(this).val() != "__" pois estamos usando mask('99'), que usa '_' como placeholder
+                if(jQuery(this).val() != "" && jQuery(this).val() != "__") {
+                    count = count + parseInt(jQuery(this).val());
+                }
+            })
+            jQuery("#grid-"+tam+"-quantidade2").html(count);
+        }
+        
+        function number_format (number, decimals, dec_point, thousands_sep) {
+            number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+            var n = !isFinite(+number) ? 0 : +number,
+                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+            if (s[0].length > 3) {        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+            }
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');    }
+            return s.join(dec);
+        }
+    </script>
+    <? } else { ?>
+        <?php if ($_product->isSaleable() && count($_attributes)):?>
+        <dl>
+        <?php foreach($_attributes as $_attribute): ?>
+            <?php $finalLabel = "Escolha ".(strtoupper($_attribute->getLabel()) == 'COR' ? 'a ' : 'o ').$_attribute->getLabel(); ?>
+            <dt><label class="required"><?php echo $finalLabel ?></label></dt>
+            <dd class="attr-<?php echo strtolower($_attribute->getLabel()); ?> <?php if ($_attribute->decoratedIsLast) echo 'last'; ?>">
+                <div class="input-box">
+                    <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                        <option><?php echo $this->__('Choose an Option...') ?></option>
+                    </select>
+                  </div>
+            </dd>
+        <?php endforeach; ?>
+        </dl>
+        <script type="text/javascript">
+            var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
+        </script>
+    <?php endif;?>
+    <? } ?>
+    
+
+<div style="clear:both; padding-top:15px;"></div>

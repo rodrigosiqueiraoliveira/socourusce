@@ -1,0 +1,67 @@
+<?php
+    $_helper = $this->helper('catalog/output');
+    $_coreHelper = $this->helper('core');
+    
+    if($this->getCategoryId()) {
+	$layer = $this->getLayer();
+	$category = Mage::getModel('catalog/category')->load($this->getCategoryId());
+	$layer->setCurrentCategory($category);
+	$_productCollection = $layer->getProductCollection();
+    }
+    
+    if($_productCollection && $_productCollection->count()) { ?>
+	<div class="lista-produtos-container">
+	    <div id="produtos-esportistas">
+		<ul class="lista-produtos">
+	    <?php
+	    $productCount = 0;
+	    foreach ($_productCollection as $_product){
+		if($productCount % 3 == 0 && $productCount != 0) { ?>
+		    <ul class="lista-produtos">
+		<?php }
+		$productCount++;
+	    ?>
+		    <li class="item-lista-produto">
+			<div class="produto">
+			    <div class="produto-img">
+				<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(160, 200); ?>" width="160" height="200" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+			    </div>
+			    <div class="produto-nome">
+				<div class="produto-wrapper">
+				    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+				    <h2 class="product-name">
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>">
+					<?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?>
+					</a>
+				    </h2>
+				</div>
+			    </div>
+			    <div class="produto-precos">
+				<div class="produto-wrapper">
+				    <?php echo $this->getPriceHtml($_product, true) ?>
+				</div>
+			    </div>
+			    <div class="produto-precos-prazo">
+				<div class="produto-wrapper">
+				    <? $parcela = ($_product->getMinimalPrice() / 3);?>
+				    <span class="price">ou em 3x de <span><?php echo $_coreHelper->currency($parcela,true,false) ?></span></span>
+				</div>
+			    </div>
+			</div>
+		    </li>
+	    <?php if($productCount % 3 == 0) { ?>
+		    <!--<ul class="lista-produtos">-->
+		    </ul>
+		<?php }
+		if($productCount >= 6) break;
+		} ?>
+		</ul>
+	    </div>
+	</div>
+	<script type="text/javascript">
+	    decorateGeneric(jQuery('#produtos-esportistas .lista-produtos'));
+	    jQuery('#produtos-esportistas .lista-produtos').each(function(){
+		decorateGeneric(jQuery(this).children('li'));
+	    });
+	</script>
+<? } ?>

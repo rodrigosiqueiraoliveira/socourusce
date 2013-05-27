@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Esmart_Eav>
+            <version>1.11.0.0</version>
+        </Esmart_Eav>
+    </modules>
+    <global>
+        <helpers>
+            <esmart_eav>
+                <class>Esmart_Eav_Helper</class>
+            </esmart_eav>
+        </helpers>
+        <blocks>
+            <esmart_eav>
+                <class>Esmart_Eav_Block</class>
+            </esmart_eav>
+        </blocks>
+    </global>
+</config>

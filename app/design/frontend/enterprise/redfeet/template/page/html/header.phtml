@@ -1,0 +1,97 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div class="header-container">
+    
+    <div class="header-panel">
+        <!--<div class="switches"><?php echo $this->getChildHtml('switches') ?></div>-->
+        <?php echo $this->getChildHtml('soCourusLinks') ?>
+    </div>
+    <div class="header">
+        <div class="branding">
+        <?php if ($this->getIsHomePage()):?>
+            <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+            <?php else:?>
+            <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+            <?php endif?>
+            <?php echo $this->getChildHtml('headerCallout') ?>
+        </div>
+        <div class="box-welcome">
+            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?></p>
+            <?php if(!$this->helper('customer')->isLoggedIn()) { ?>
+                <div class="header-info-welcome">
+                    <?
+                        $linkLogin = $this->__('<a href="'.$this->helper('customer')->getLoginUrl().'">login</a>');
+                        $linkCriarConta = $this->__('<a href="'.$this->helper('customer')->getRegisterUrl().'">aqui</a>');
+                        echo $this->__('Se j&aacute; &eacute; cadastrado fa&ccedil;a seu %s ou cadastre-se %s', $linkLogin, $linkCriarConta); ?>
+                </div>
+            <?php } ?>
+            <div class="header-redes-sociais">
+                <!-- Botão Facebook -->
+                <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FSoCourus&amp;send=false&amp;layout=button_count&amp;width=105&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:105px; height:21px;" allowTransparency="true"></iframe>
+                
+                <!-- Botão Twitter 
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://twitter.com/socourus" data-lang="pt" data-count="none">Tweetar</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> -->              
+
+                    <a href="https://twitter.com/SoCourus" class="twitter-follow-button" data-show-count="false" data-lang="pt">Seguir @SoCourus</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+                    </script>
+
+
+                <!-- Botão G+ -->
+                <!-- Place this tag where you want the +1 button to render. -->
+                <div class="gmais">
+                    <div class="g-plusone"  data-size="medium"></div>
+                </div>
+                
+                <!-- Place this tag after the last +1 button tag. -->
+                <script type="text/javascript">
+                  window.___gcfg = {lang: 'pt-BR'};
+                
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>
+            </div>
+        </div>
+        <div class="box-atendimento-online">
+            <img src="<?php echo $this->getSkinUrl('images/img_atendimento_online.png');?>" />
+        </div>
+        <div class="quick-access">
+            <?php echo $this->getChildHtml('topCart') ?>
+            <?php echo $this->getChildHtml('topLinks') ?>
+        </div>
+    </div>
+    <?php echo $this->getChildHtml('topSearch') ?>
+    <?php echo $this->getChildHtml('topMenu') ?>
+    <?php echo $this->getChildHtml('topContainer') ?>
+</div>

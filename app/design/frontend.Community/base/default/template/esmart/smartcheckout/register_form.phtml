@@ -1,0 +1,96 @@
+<?php
+/**
+ * Smart Commerce do Brasil
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@e-smart.com.br so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.e-smart.com.br for more information.
+ *
+ * @category    Esmart
+ * @package     Esmart_SmartCheckout
+ * @copyright   Copyright (c) 2012 Smart Commerce do Brasil. (http://www.e-smart.com.br)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ 
+ /**
+ * 
+ *
+ * @category    Esmart
+ * @package     Esmart_SmartCheckout
+ * @author      Tiago Sampaio <tiago.sampaio@e-smart.com.br>
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Create an Account') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('smartcheckout/ajax/register') ?>" method="post" id="form-validate" class="register-form">
+    <div class="fieldset">
+        <h4 class="legend"><?php echo $this->__('Enter your password') ?></h4>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label class="required" for="password"><em>*</em><?php echo $this->__('Password') ?></label>
+                    <div class="input-box">
+                        <input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="required-entry validate-password input-text" />
+                    </div>
+                </div>
+                   <div class="field">
+                    <label class="required" for="confirmation"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+                    <div class="input-box">
+                        <input type="password" name="confirmation" title="<?php echo $this->__('Confirm Password') ?>" id="confirmation" class="required-entry validate-cpassword input-text" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button id="create-account-button" class="button" type="submit"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    //var dataForm = new VarienForm('form-validate', true);
+    <?php if($this->getShowAddressFields()): ?>
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+    <?php endif; ?>
+
+    $('create-account-button').observe('click', function(e)    {
+
+        Event.stop(e);
+
+        var url = '<?php echo $this->getUrl('smartcheckout/ajax/register', array('_secure'=>true)); ?>';
+        var parameters = $$('form.register-form').first().serialize(true);
+
+        new Ajax.Request(url, {
+                method: 'post',
+                parameters: parameters,
+                onComplete: function(response)  {
+                    if(response.status == 200)  {
+                         var result = response.responseText.evalJSON();
+
+                         if(result.success && result.message == 'customer_logged_in')   {
+                             window.location='<?php echo $this->getUrl('customer/account', array('_secure'=>true)); ?>';
+                         }
+                         else   {
+                            alert('Error occured: ' + result.error);
+                         }
+                    }
+                }
+        });
+    });
+//]]>
+</script>

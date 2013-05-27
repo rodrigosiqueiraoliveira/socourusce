@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<RedFeet_SuccessReview>
+		<version>0.1.0</version>
+		</RedFeet_SuccessReview>
+	</modules>
+	<global>
+		<blocks>
+			<successreview>
+				<class>RedFeet_SuccessReview_Block</class>
+			</successreview>
+		</blocks>
+	</global>
+</config>

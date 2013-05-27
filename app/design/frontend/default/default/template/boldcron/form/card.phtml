@@ -1,0 +1,169 @@
+<?php
+        $_code=$this->getMethodCode();
+        $help_payments = Mage::helper('boldcron/data')->getPayment();
+        $payment_methods = explode(",", $help_payments['payment_methods']);
+?>
+
+<fieldset class="form-list">
+        <ul id="payment_form_<?php echo $_code ?>" style="display:none;">
+                <li>
+                <?php if ( in_array("cartao_de_credito", $payment_methods) ): ?>
+                        <label><input onclick="var divCred = document.getElementById('boldcron_credito'); var divDeb = document.getElementById('boldcron_debito'); if (divDeb != null) {divDeb.style.display='none'}; if (divCred != null) {divCred.style.display='block'};" type="radio" id="forma_pagamento_1" name="payment[forma_pagamento]" title="<?php echo Mage::helper('payment')->__("forma_pagamento") ?>" value="CartaoCredito" class="validate-one-required-by-name-new" /> Cart&atilde;o de cr&eacute;dito</label>
+                        <br/><br/>
+                        <div id="boldcron_credito" style="display:none">
+                                <ul>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_cc_owner" class="required"><em>*</em><?php echo $this->__('Name on Card') ?></label>
+                                            <div class="input-box">
+                                                <input type="text" title="<?php echo $this->__('Name on Card') ?>" class="input-text required-entry" id="<?php echo $_code ?>_cc_owner" name="payment[boldcron_cc_owner]" value="<?php echo $this->htmlEscape($this->getInfoData('boldcron_cc_owner')) ?>" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_cc_type" class="required"><em>*</em><?php echo $this->__('Credit Card Type') ?></label>
+                                            <div class="input-box">
+                                                <select id="<?php echo $_code ?>_cc_type" name="payment[boldcron_cc_type]" class="required-entry ">
+                                                    <option value=""><?php echo $this->__('--Please Select--')?></option>
+                                                <?php $_ccType = $this->getInfoData('boldcron_cc_type') ?>
+                                     
+                                                <?php foreach ($this->getCcAvailableTypes("cc") as $_typeCode => $_typeName): ?>
+                                                    <option value="<?php echo $_typeCode ?>"<?php if($_typeCode==$_ccType): ?> selected="selected"<?php endif ?>><?php echo $_typeName ?></option>
+                                                <?php endforeach ?>
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
+                                            <div class="input-box">
+                                                <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[boldcron_cc_number]" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text validate-cc-number validate-cc-type" value="" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_expiration" class="required"><em>*</em><?php echo $this->__('Expiration Date') ?></label>
+                                            <div class="input-box">
+                                                <div class="v-fix">
+                                                    <select id="<?php echo $_code ?>_expiration" name="payment[boldcron_cc_exp_month]" class="month validate-cc-exp required-entry">
+                                                    <?php $_ccExpMonth = $this->getInfoData('boldcron_cc_exp_month') ?>
+                                                    <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                                                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$_ccExpMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                                                    <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                                <div class="v-fix">
+                                                    <?php $_ccExpYear = $this->getInfoData('boldcron_cc_exp_year') ?>
+                                                    <select id="<?php echo $_code ?>_expiration_yr" name="payment[boldcron_cc_exp_year]" class="year required-entry">
+                                                    <?php foreach ($this->getCcYears() as $k=>$v): ?>
+                                                        <option value="<?php echo $k?$k:'' ?>"<?php if($k==$_ccExpYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                                                    <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php echo $this->getChildHtml() ?>
+                                        <?php if($this->hasVerification()): ?>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_cc_cid" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>
+                                            <div class="input-box">
+                                                <div class="v-fix">
+                                                    <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="input-text cvv required-entry validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[boldcron_cc_cid]" value="" />
+                                                </div>
+                                                <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
+                                            </div>
+                                        </li>
+                                        <?php endif; ?>
+                                        <?php if ($this->hasSsCardType()): ?>
+                                        <li id="<?php echo $_code ?>_cc_type_ss_div">
+                                            <ul class="inner-form">
+                                                <li class="form-alt"><label for="<?php echo $_code ?>_cc_issue" class="required"><em>*</em><?php echo $this->__('Switch/Solo/Maestro Only') ?></label></li>
+                                                <li>
+                                                    <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label>
+                                                    <span class="input-box">
+                                                        <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss cvv" id="<?php echo $_code ?>_cc_issue" name="payment[boldcron_cc_ss_issue]" value="" />
+                                                    </span>
+                                                </li>
+                                    
+                                                <li>
+                                                    <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label>
+                                                    <div class="input-box">
+                                                        <div class="v-fix">
+                                                            <select id="<?php echo $_code ?>_start_month" name="payment[boldcron_cc_ss_start_month]" class="validate-cc-ukss month">
+                                                            <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                                                                <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('boldcron_cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                                                            <?php endforeach ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="v-fix">
+                                                            <select id="<?php echo $_code ?>_start_year" name="payment[boldcron_cc_ss_start_year]" class="validate-cc-ukss year">
+                                                            <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
+                                                                <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('boldcron_cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                                                            <?php endforeach ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="adv-container">&nbsp;</li>            
+                                            </ul>
+                                            <script type="text/javascript">
+                                                //<![CDATA[
+                                                var SSChecked<?php echo $_code ?> = function() {
+                                                    var elm = $('<?php echo $_code ?>_cc_type');
+                                                    if (['SS','SM','SO'].indexOf(elm.value) != -1) {
+                                                        $('<?php echo $_code ?>_cc_type_ss_div').show();
+                                                    } else {
+                                                        $('<?php echo $_code ?>_cc_type_ss_div').hide();
+                                                    }
+                                                };
+                                        
+                                                Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
+                                                SSChecked<?php echo $_code ?>();
+                                                //]]>
+                                            </script>
+                                        </li>
+                                        <?php endif; ?>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_cc_parcelas"  > <?php echo $this->__('Quantidade Parcelas') ?></label>
+                                            <div class="input-box">
+                                                <div class="v-fix">
+                                                    <select id="<?php echo $_code ?>_cc_parcelas" name="payment[boldcron_cc_parcelas]" title="<?php echo $this->__('Quantidade Parcelas') ?>">
+                                                        <?php
+                                                            $max = intval($this->getMax());
+                                                            $i = 0;
+                                                            for($i=1;$i<= $max;$i++)
+                                                            echo "<option value='".$i."'>".$i,"</option>";
+                                                        ?>
+                                                    </select> 
+                                                </div> 
+                                            </div>
+                                        </li>
+                                </ul>
+                        </div>
+                <?php endif; ?>
+
+                <?php if ( in_array("boleto_bancario", $payment_methods) ): ?>
+                        <label><input onclick="var divCred = document.getElementById('boldcron_credito'); var divDeb = document.getElementById('boldcron_debito'); if (divDeb != null) {divDeb.style.display='none'}; if (divCred != null) {divCred.style.display='none'};" type="radio" id="forma_pagamento_2" name="payment[forma_pagamento]" title="<?php echo Mage::helper('payment')->__("forma_pagamento") ?>" value="BoletoBancario" class="validate-one-required-by-name-new"/> Boleto Banc&aacute;rio</label>
+                <?php endif; ?>
+                
+                <?php if ( in_array("debito_online", $payment_methods) ): ?>
+                        <br/><br/>
+                        <label><input onclick="var divDeb = document.getElementById('boldcron_debito'); var divCred = document.getElementById('boldcron_credito'); if (divDeb != null) {divDeb.style.display='block'}; if (divCred != null) {divCred.style.display='none'};" type="radio" id="forma_pagamento_3" name="payment[forma_pagamento]" title="<?php echo Mage::helper('payment')->__("forma_pagamento") ?>" value="CartaoDebito" class="validate-one-required-by-name-new" /> Cart&atilde;o de d&eacute;bito</label>
+                        <br/><br/>
+                        <div id="boldcron_debito" style="display:none">
+                                <ul>
+                                        <li>
+                                            <label for="<?php echo $_code ?>_dc_type" class="required"><em>*</em><?php echo $this->__('Tipo de Cart&atilde;o de D&eacute;bito') ?></label>
+                                            <div class="input-box">
+                                                <select id="<?php echo $_code ?>_dc_type" name="payment[boldcron_dc_type]" class="required-entry ">
+                                                        <option value=""><?php echo $this->__('--Please Select--')?></option>
+                                                        <?php $_dcType = $this->getInfoData('boldcron_dc_type') ?>
+                                             
+                                                        <?php foreach ($this->getCcAvailableTypes("dc") as $_typeCode => $_typeName): ?>
+                                                            <option value="<?php echo $_typeCode ?>"<?php if($_typeCode==$_dcType): ?> selected="selected"<?php endif ?>><?php echo $_typeName ?></option>
+                                                        <?php endforeach ?>
+                                                </select>
+                                            </div>
+                                        </li>
+                                </ul>
+                        </div>
+                <?php endif; ?>
+                </li>
+        </ul>
+</fieldset>

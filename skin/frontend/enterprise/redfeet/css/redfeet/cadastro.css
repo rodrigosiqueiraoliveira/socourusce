@@ -1,0 +1,390 @@
+.divider {
+    background: none repeat scroll 0 0 #F8B079;
+    border-top: 1px solid #FBCAA6;
+    float: left;
+    font-size: 0;
+    height: 1px;
+    line-height: 0;
+    margin: 25px 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+span.validation-passed, div.validation-passed,
+span.validation-error, div.validation-error {
+    background: none repeat scroll 0 0 transparent;
+    padding-right: 0;
+}
+
+/* Cadastro T�tulos */
+
+.col1-layout .account-create .page-title {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    /*float: left;*/     
+    margin: 0;
+    padding: 0 0 20px;
+    width: 100%;
+}
+.account-create .page-title h1 {
+    color: #F47B20;
+    font-size: 24px;
+    font-weight: bold;
+}
+.account-create .page-title .subtitle {
+    float: left;
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
+}
+.account-create .page-title .subtitle span {
+    color: #666666;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Cadastro T�tulos END; */
+
+/* Form Cadastro */
+
+.account-create {
+    
+}
+.account-create form {
+    float: left;
+    width: 100%;
+}
+.account-create form .fieldset {
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.account-create form .fieldset .legend {
+    color: #F47B20;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin: 0 0 15px;
+    padding: 0;
+    width: 100%;
+}
+.account-create form .fieldset .socourus-form-list {
+    float: left;
+    width: 500px;
+}
+.account-create form .fieldset .socourus-form-list li {
+    float: left;
+    margin: 0 0 9px;
+    width: 100%;
+}
+.account-create form .fieldset .socourus-form-list li.list-radio-box {
+    margin: 0;
+}
+.account-create form .fieldset .socourus-form-list li.wide {
+    width: 100%;
+}
+.account-create form .fieldset .socourus-form-list li.fields {
+    width: 100%;
+}
+.account-create form .fieldset .socourus-form-list li.fields .field {
+    clear: none;
+    float: left;
+    padding: 0;
+    width: 45%;
+}
+.account-create form .fieldset .socourus-form-list li.fields .field.first {
+    float: left !important;
+}
+.account-create form .fieldset .socourus-form-list li.fields .field.last {
+    float: right;
+}
+.account-create form .fieldset .socourus-form-list li label {
+    clear: left;
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li label em {
+    color: #F47B20;
+    float: right;
+}
+.account-create form .fieldset .socourus-form-list li .input-box {
+    float: left;
+    width: 100%;
+}
+/*** alterado Mauro *************************/
+/*.customer-name-wholesale .name-firstname label{ margin-right: 300px !important; }*/
+.customer-name-wholesale .input-box-firstname { width: 260px !important; float: left; }
+.customer-name-wholesale .input-box-lastname { width: 225px !important; float: right !important;  }
+.customer-name-wholesale #firstname { width: 225px;  }
+.customer-name-wholesale #lastname { width: 225px; }
+#advice-required-entry-firstname { width: 225px; margin: 0;}
+
+.wholesale-fields .billing-name { overflow: hidden; width: 280px !important; }
+
+
+.account-create form .fieldset .socourus-form-list li .input-box input {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #B0B0B0;
+    float: left;
+    padding: 5px;
+    width: 100%;
+}
+.account-create form .fieldset .socourus-form-list li .input-box input[type="radio"],
+.account-create form .fieldset .socourus-form-list li .input-box input[type="checkbox"] {
+    border: 0 !important;
+}
+.account-create form .fieldset .socourus-form-list li .input-box select {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #B0B0B0;
+    float: left;
+    padding: 5px;
+    width: 237px;
+}
+
+/* Tipo de Cadastro */
+
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-fisico {
+    float: left;
+    margin-right: 15px;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-juridico {
+    float: left;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-fisico input {
+    margin: 4px;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-juridico input {
+    margin: 4px;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-fisico label {
+    clear: none;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.radio-box-juridico label {
+    clear: none;
+}
+
+/* Campos Cadastro Atacado */
+
+.account-create form .fieldset .socourus-form-list li.fields .customer-name-wholesale .field {
+    /*width: 100%;*/
+}
+
+.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento {
+    float: left;
+    height: 19px;
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento label {
+    clear: none;
+    float: left;
+    font-weight: normal;
+    padding: 0;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento .input-box {
+    float: left;
+    margin-right: 2px;
+    margin-top: 2px;
+    width: auto;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento .input-box input {
+    height: 13px;
+    width: 13px;
+}
+
+/* Campos Cadastro Atacado END; */
+
+/* Tipo de Cadastro END; */
+
+/* Data de Nascimento */
+
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob {
+    
+}
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob input {
+    
+}
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob label {
+    display: none;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob .dob-day {
+    float: left;
+    margin-right: 19px;
+    width: 30px;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob .dob-month {
+    float: left;
+    width: 30px;
+}
+.account-create form .fieldset .socourus-form-list li .input-box.customer-dob .dob-year {
+    float: right;
+    width: 127px;
+}
+
+/* Data de Nascimento END; */
+
+/* Newsletter */
+
+.account-create form .box-newsletter {
+    float: left;
+    margin-top: 10px;
+}
+.account-create form .box-newsletter .input-box {
+    float: left;
+    margin: 0 5px;
+}
+.account-create form .box-newsletter .input-box input {
+    float: left;
+}
+.account-create form .box-newsletter label {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+}
+
+/* Newsletter END; */
+
+/* Buttons set */
+
+.account-create form .buttons-set {
+    clear: none;
+    float: right;
+    width: auto;
+}
+.account-create form .buttons-set .required {
+    color: #F47B20;
+    float: left;
+    font-size: 12px;
+    padding: 11px 0;
+    width: auto;
+}
+.account-create form .buttons-set button.socourus-btn-submit {
+    background: none repeat scroll 0 0 #1728C3;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    position: relative;
+}
+.account-create form .buttons-set button.socourus-btn-submit span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 21px;
+    padding: 9px 15px !important;
+    text-transform: uppercase;
+}
+
+/* Buttons set END; */
+
+/* SAC */
+
+.box-sac-extras {
+    background: none repeat scroll 0 0 #EDEDEC;
+    float: left;
+    margin-top: 25px;
+    padding: 10px 20px;
+    width: 860px;
+}
+.box-sac-extras .box-sac-extra {
+    border-right: 1px solid #C5C5C5;
+    float: left;
+    height: 80px;
+    margin-right: 25px;
+    padding-right: 25px;
+}
+.box-sac-extras .box-sac-extra.last {
+    border-right: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.box-sac-extras .box-sac-extra.box-sac {
+    width: 300px;
+}
+
+.box-sac-extras .box-sac-extra.box-sac .sac-titulo {
+    color: #F47B20;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.box-sac-extras .box-sac-extra.box-sac .sac-telefone {
+    color: #F47B20;
+    float: left;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.box-sac-extras .box-sac-extra.box-sac .sac-info {
+    color: #666666;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    width: 100%;
+}
+.box-sac-extras .box-sac-extra.box-atendimento-online {
+    
+}
+.box-sac-extras .box-sac-extra.box-atendimento-online img {
+    float: left;
+    position: relative;
+    text-align: center;
+    top: 20%;
+    vertical-align: middle;
+}
+.box-sac-extras .box-sac-extra.box-pesquisa-catalogo {
+    float: right;
+}
+#home_search_mini_form {
+    float: left;
+    position: relative;
+    top: 30%;
+    width: 100%;
+}
+#home_search_mini_form .form-search {
+    float: left;
+    width: 100%;
+}
+#home_search_mini_form .form-search input {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FDFDFD;
+    color: #C5C5C5;
+    float: left;
+    font-style: italic;
+    height: 15px;
+    padding: 8px 2px;
+    width: 210px;
+}
+#home_search_mini_form .form-search button {
+    border: 1px solid #FDFDFD;
+    border-right: 1px solid #E9E9E9;
+    float: left;
+    height: 33px;
+}
+/* SAC END; */
+
+/* Footer Newsletter */
+
+.footer-newsletter .box-newsletter form .form-subscribe {
+    /*margin-left: 20px;*/
+}
+
+/* Footer Newsletter END; */
+
+/* Form Cadastro END; */

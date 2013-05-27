@@ -1,0 +1,22 @@
+<?php
+/**
+ * Shopping cart totals template
+ *
+ * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+?>
+<?php
+    $totals =  $this->getTotals();
+    $valorTotal = $totals['grand_total']->getValue();
+?>
+<div class="total_atacado">
+    <span class="total-label">Total</span>
+    <span class="total-value">
+        <?php echo $this->helper('checkout')->formatPrice($valorTotal); ?>
+    </span>
+    <span class="total-parcelado">
+        <?php 
+            echo $this->__("ou em at&eacute; 6x de %s" , $this->helper('checkout')->formatPrice($valorTotal/6)); ?>
+    </span>
+</div>

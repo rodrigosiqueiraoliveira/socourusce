@@ -1,0 +1,8 @@
+a:4:{i:0;s:64:"Module "RedFeet_Navigation" requires module "GoMage_Navigation".";i:1;s:716:"#0 /var/www/socourus_new/app/code/core/Mage/Core/Model/Config.php(849): Mage::throwException('Module "RedFeet...')
+#1 /var/www/socourus_new/app/code/core/Mage/Core/Model/Config.php(812): Mage_Core_Model_Config->_sortModuleDepends(Array)
+#2 /var/www/socourus_new/app/code/core/Mage/Core/Model/Config.php(315): Mage_Core_Model_Config->_loadDeclaredModules()
+#3 /var/www/socourus_new/app/code/core/Mage/Core/Model/App.php(414): Mage_Core_Model_Config->loadModules()
+#4 /var/www/socourus_new/app/code/core/Mage/Core/Model/App.php(343): Mage_Core_Model_App->_initModules()
+#5 /var/www/socourus_new/app/Mage.php(683): Mage_Core_Model_App->run(Array)
+#6 /var/www/socourus_new/index.php(94): Mage::run('', 'store')
+#7 {main}";s:3:"url";s:14:"/socourus_new/";s:11:"script_name";s:23:"/socourus_new/index.php";}

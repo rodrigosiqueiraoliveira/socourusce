@@ -1,0 +1,17 @@
+.svn*
+app/etc/local.xml
+/var/
+/media/
+downloader/.cache/
+js.old/
+app/etc/config.xml
+.htaccess
+LICENSE.html
+LICENSE.txt
+LICENSE_AFL.txt
+RELEASE_NOTES.txt
+*.tar.gz
+*.tar
+*.zip
+*.gz
+/index.php

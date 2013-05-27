@@ -1,0 +1,12 @@
+<?php
+    $seloGeotrust = str_replace(array('<p>', '</p>'), '', $this->getLayout()->createBlock('cms/block')->setBlockId('home_selo_geotrust_loja_segura')->toHtml()); 
+    $bannerFaixa = str_replace(array('<p>', '</p>'), '', $this->getLayout()->createBlock('cms/block')->setBlockId('home_banner_faixa')->toHtml()); 
+?>
+<div class="after-header-container">
+    <div class="box-after-header-left">
+	<?php echo $seloGeotrust; ?>
+    </div>
+    <div class="box-after-header-right">
+	<?php echo $bannerFaixa; ?>
+    </div>
+</div>

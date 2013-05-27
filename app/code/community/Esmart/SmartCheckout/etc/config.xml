@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smart Commerce do Brasil
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@e-smart.com.br so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.e-smart.com.br for more information.
+ *
+ * @category    Esmart
+ * @package     Esmart_SmartCheckout
+ * @copyright   Copyright (c) 2012 Smart Commerce do Brasil. (http://www.e-smart.com.br)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ 
+ /**
+ * 
+ *
+ * @category    Esmart
+ * @package     Esmart_SmartCheckout
+ * @author      Tiago Sampaio <tiago.sampaio@e-smart.com.br>
+ */
+-->
+<config>
+    <modules>
+        <Esmart_SmartCheckout>
+            <!-- <version>4.0.8</version> -->
+            <version>1.0.0.0</version>
+        </Esmart_SmartCheckout>
+    </modules>
+    <frontend>
+        <secure_url>
+          <smartcheckout>/smartcheckout</smartcheckout>
+        </secure_url>
+        <events>
+            <checkout_type_onepage_save_order>
+                <observers>
+                    <smartcheckout_save_customercomment>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Helper_Data</class>
+                        <method>setCustomerComment</method>
+                    </smartcheckout_save_customercomment>
+                </observers>
+              </checkout_type_onepage_save_order>
+              <sales_quote_collect_totals_before>
+                <observers>
+                    <smartcheckout_set_address_defaults>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setDefaults</method>
+                    </smartcheckout_set_address_defaults>
+                </observers>
+              </sales_quote_collect_totals_before>
+              <sales_quote_collect_totals_after>
+                <observers>
+                    <smartcheckout_set_shipping_defaults>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setShippingIfDifferent</method>
+                    </smartcheckout_set_shipping_defaults>
+                </observers>
+              </sales_quote_collect_totals_after>
+              <customer_login>
+                <observers>
+                    <smartcheckout_set_shipping_defaults_on_login>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Model_Observers_PresetDefaults</class>
+                        <method>setDefaultsOnLogin</method>
+                    </smartcheckout_set_shipping_defaults_on_login>
+                </observers>
+              </customer_login>
+              <controller_action_layout_render_before_onestepcheckout_index_index>
+                <observers>
+                    <smartcheckout_check_valid>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Helper_Data</class>
+                        <method>checkValid</method>
+                    </smartcheckout_check_valid>
+                    <smartcheckout_compare_address_defaults>
+                        <type>model</type>
+                        <class>Esmart_SmartCheckout_Model_Observers_PresetDefaults</class>
+                        <method>compareDefaultsFromCart</method>
+                    </smartcheckout_compare_address_defaults>
+                </observers>
+              </controller_action_layout_render_before_onestepcheckout_index_index>
+        </events>
+        <routers>
+            <smartcheckout>
+                <use>standard</use>
+                <args>
+                    <module>Esmart_SmartCheckout</module>
+                    <frontName>smartcheckout</frontName>
+                </args>
+            </smartcheckout>
+            <checkout>
+                <args>
+                    <modules>
+                        <Esmart_SmartCheckout before="Mage_Checkout">Esmart_SmartCheckout</Esmart_SmartCheckout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+        <layout>
+            <updates>
+                <smartcheckout module="Esmart_SmartCheckout">
+                    <file>esmart/smartcheckout.xml</file>
+                </smartcheckout>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Esmart_SmartCheckout>
+                    <files>
+                        <default>Esmart_SmartCheckout.csv</default>
+                    </files>
+                </Esmart_SmartCheckout>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <smartcheckout>
+                                            <title>OneStepCheckout section</title>
+                                        </smartcheckout>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Esmart_SmartCheckout>
+                    <files>
+                        <default>Esmart_SmartCheckout.csv</default>
+                    </files>
+                </Esmart_SmartCheckout>
+            </modules>
+        </translate>
+    </adminhtml>
+    <global>
+        <models>
+            <smartcheckout>
+                <class>Esmart_SmartCheckout_Model</class>
+            </smartcheckout>
+            <sales>
+                <rewrite>
+                    <quote>Esmart_SmartCheckout_Model_Sales_Quote</quote>
+                </rewrite>
+            </sales>
+        </models>
+        <resources>
+            <esmart_smartcheckout_setup>
+                <setup>
+                    <module>Esmart_SmartCheckout</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </esmart_smartcheckout_setup>
+        </resources>
+        <blocks>
+            <smartcheckout>
+                 <class>Esmart_SmartCheckout_Block</class>
+            </smartcheckout>
+            <checkout>
+                <rewrite>
+                    <onepage_link>Esmart_SmartCheckout_Block_Checkout_Onepage_Link</onepage_link>
+                </rewrite>
+            </checkout>
+            <checkout>
+                <rewrite>
+                    <links>Esmart_SmartCheckout_Block_Checkout_Links</links>
+                </rewrite>
+            </checkout>
+            <checkout>
+                <rewrite>
+                    <cart_sidebar>Esmart_SmartCheckout_Block_Checkout_Cart_Sidebar</cart_sidebar>
+                </rewrite>
+            </checkout>
+            <checkout>
+                <rewrite>
+                    <cart>Esmart_SmartCheckout_Block_Checkout_Cart</cart>
+                </rewrite>
+            </checkout>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view_items>Esmart_SmartCheckout_Block_Adminhtml_Sales_Order_View_Comment</sales_order_view_items>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <smartcheckout>
+                <class>Esmart_SmartCheckout_Helper</class>
+            </smartcheckout>
+            <checkout>
+                <rewrite>
+                    <url>Esmart_SmartCheckout_Helper_Url</url>
+                </rewrite>
+            </checkout>
+        </helpers>
+    </global>
+    <default>
+        <smartcheckout>
+            <general>
+                <rewrite_checkout_links>0</rewrite_checkout_links>
+                <default_country></default_country>
+                <default_shipping_method></default_shipping_method>
+                <hide_shipping_method>0</hide_shipping_method>
+                <default_payment_method></default_payment_method>
+                <hide_payment_method>0</hide_payment_method>
+                <enable_gift_messages>0</enable_gift_messages>
+                <hide_nonfree_payment_methods>0</hide_nonfree_payment_methods>
+                <show_custom_options>0</show_custom_options>
+                <enable_geoip>0</enable_geoip>
+                <enable_newsletter>1</enable_newsletter>
+                <enable_terms>0</enable_terms>
+                <enable_different_shipping>1</enable_different_shipping>
+                <enable_different_shipping_hide>1</enable_different_shipping_hide>
+                <checkout_title>SmartCheckout</checkout_title>
+                <checkout_description>Bem vindo ao SmartCheckout! Preencha os dados abaixo para finalizar sua compra.</checkout_description>
+                <skin>generic</skin>
+                <display_tax_included>1</display_tax_included>
+                <redirect_to_cart>0</redirect_to_cart>
+            </general>
+            <exclude_fields>
+                <exclude_country_id>0</exclude_country_id>
+                <exclude_city>0</exclude_city>
+                <exclude_telephone>0</exclude_telephone>
+                <exclude_company>0</exclude_company>
+                <exclude_fax>0</exclude_fax>
+                <exclude_region>0</exclude_region>
+                <exclude_zip>0</exclude_zip>
+                <exclude_address>0</exclude_address>
+                <enable_comments>0</enable_comments>
+                <enable_newsletter>0</enable_newsletter>
+                <newsletter_default_checked>1</newsletter_default_checked>
+                <enable_discount>0</enable_discount>
+            </exclude_fields>
+            <sortordering_fields>
+                <firstname>1</firstname>
+                <lastname>2</lastname>
+                <email>3</email>
+                <telephone>4</telephone>
+                <street>5</street>
+                <country_id>6</country_id>
+                <region_id>9</region_id>
+                <city>7</city>
+                <postcode>8</postcode>
+                <company>10</company>
+                <fax>11</fax>
+                <taxvat>12</taxvat>
+                <dob>13</dob>
+                <gender>14</gender>
+                <create_account>15</create_account>
+                <password>16</password>
+                <confirm_password>17</confirm_password>
+                <save_in_address_book>18</save_in_address_book>
+                <use_for_shipping_yes>19</use_for_shipping_yes>
+            </sortordering_fields>
+            <feedback>
+                <enable_feedback>0</enable_feedback>
+                <enable_feedback_freetext>0</enable_feedback_freetext>
+                <feedback_values></feedback_values>
+            </feedback>
+            <ajax_update>
+                <enable_ajax_save_billing>1</enable_ajax_save_billing>
+                <ajax_save_billing_fields>country,postcode</ajax_save_billing_fields>
+                <enable_update_payment_on_shipping>1</enable_update_payment_on_shipping>
+            </ajax_update>
+            <registration>
+                <registration_mode>allow_guest</registration_mode>
+                <registration_order_without_password>0</registration_order_without_password>
+            </registration>
+            <addressreview>
+                <billing_template><![CDATA[#{billing:firstname} #{billing:lastname}<br />#{billing:email}<br />#{billing:company}<br />#{billing:street1}<br />#{billing:street2}<br />#{billing:city},  #{billing:region}, #{billing:postcode}<br />#{billing:country_id}<br />T: #{billing:telephone} ]]></billing_template>
+                <shipping_template><![CDATA[#{shipping:firstname} #{shipping:lastname}<br />#{shipping:email}<br />#{shipping:street1}<br />#{shipping:street2}<br />#{shipping:city},  #{shipping:region}, #{shipping:postcode}<br />#{shipping:country_id}<br />T: #{shipping:telephone} ]]></shipping_template>
+            </addressreview>
+        </smartcheckout>
+    </default>
+</config>

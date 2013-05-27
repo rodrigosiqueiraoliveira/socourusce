@@ -1,0 +1,19 @@
+<?php
+
+/*Get customer data*/
+$customer = Mage::helper('customer')->getCustomer()->getData();
+/*Fim*/
+
+?>
+
+<?php if ($customer['group_id'] == 4): ?>
+<label for="<?php echo $this->getFieldId('taxvat')?>" class="<?php if ($this->isRequired()) echo 'required' ?>"><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('CNPJ') ?></label>
+<div class="input-box">
+    <input type="text" id="<?php echo $this->getFieldId('taxvat')?>" name="<?php echo $this->getFieldName('taxvat')?>" value="<?php echo $this->htmlEscape($this->getTaxvat()) ?>" title="<?php echo $this->__('CNPJ') ?>" class="mask-cnpj input-text<?php if ($this->isRequired()):?> required-entry<?php endif; ?> taxvat" <?php echo $this->getFieldParams() ?> />
+</div>
+<?php else: ?>
+<label for="<?php echo $this->getFieldId('taxvat')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('CPF') ?></label>
+<div class="input-box">
+    <input type="text" id="<?php echo $this->getFieldId('taxvat')?>" name="<?php echo $this->getFieldName('taxvat')?>" value="<?php echo $this->htmlEscape($this->getTaxvat()) ?>" title="<?php echo $this->__('CPF') ?>" class="mask-cpf input-text<?php if ($this->isRequired()):?> required-entry<?php endif; ?> taxvat" <?php echo $this->getFieldParams() ?> />
+</div>
+<?php endif ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<RedFeet_Googlemapslocation>
+		<version>0.1.0</version>
+		</RedFeet_Googlemapslocation>
+	</modules>
+	<global>
+		<blocks>
+			<googlemapslocation>
+				<class>RedFeet_Googlemapslocation_Block</class>
+			</googlemapslocation>
+		</blocks>
+	</global>
+</config>

@@ -1,0 +1,153 @@
+<?php
+ /**
+ * GoMage Advanced Navigation Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.0
+ * @since        Class available since Release 2.0
+ */
+
+/**
+ * Top menu for store
+ *
+ * @see GoMage_Navigation_Block_Navigation
+ */
+?>
+
+<?php
+	if (method_exists($this, 'renderCategoriesMenuHtml')){
+		$menu_block = $this;
+	}else{
+		$menu_block = Mage::getBlockSingleton('gomage_navigation/navigation');
+	}
+	//$_menu = $menu_block->renderCategoriesMenuHtml(0,'level-top', '', $menu_block->getCurrenCategoryKey(), true);
+?>
+<?php
+// Foi trocado $menu_block->getCurrenCategoryKey() por $categoriaInicialNav, pois às vezes acontece de retornar o ID errado quando o cache da loja está ativado;
+// Id Categoria Inicial, para montar o menu de navegação;
+$categoriaInicialNav = 36;
+$menuItemArray = $menu_block->getCategoriesMenuAsArray(0,'level-top', '', $categoriaInicialNav, true);
+
+$menuTopArray = $menuBotArray = array();
+foreach($menuItemArray as $indice => $menuItem) {
+	if($indice < 4) {
+		$menuTopArray[] = $menuItem;
+	}
+	else {
+		$menuBotArray[] = $menuItem;
+	}
+}
+
+$htmlMenuTop = '';
+foreach($menuTopArray as $menuTopItem){
+	$htmlMenuTop .= $menuTopItem;
+}
+
+$htmlMenuBot = '';
+foreach($menuBotArray as $menuBotItem){
+	$htmlMenuBot .= $menuBotItem;
+}
+?>
+<?php if($htmlMenuTop):
+	$menuParam = array('divClass' => '', 'ulId' => '', 'ulClass' => '');
+	switch ($menu_block->getTypeNavigation()) {
+		case GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN:
+			$menuParam['divClass'] = "gan-wrapper gan-top";
+			$menuParam['ulClass'] = "gan-dropdown-list";
+			break;
+		case GoMage_Navigation_Model_Layer::FILTER_TYPE_PLAIN:
+			$menuParam['divClass'] = "gan-wrapper gan-top";
+			$menuParam['ulId'] = "gan_nav_top";
+			$menuParam['ulClass'] = "gan-plain-list";
+			break;
+		default:
+			$menuParam['divClass'] = "nav-container";
+			$menuParam['ulId'] = "nav";
+			break;
+	}
+	$menuParam['divClass'] = $menuParam['divClass'].' socourus-menu-top';
+	?>
+	<div class="<?php echo $menuParam['divClass']; ?>">
+		<div class="ie-navigation-rounded-corner ie-navigation-top-border">&nbsp;</div>
+		<div class="btn-home-container">
+			<a href="<?php echo Mage::helper('core/url')->getHomeUrl(); ?>">
+				<span>&nbsp;</span>
+			</a>
+		</div>
+		<ul <?php echo (($menuParam['ulClass'])? 'class="'.$menuParam['ulClass'].'"' : '');?>>
+			<?php echo $htmlMenuTop; ?>
+		</ul>
+	</div>
+<? endif; ?>
+
+<?php if($htmlMenuBot):
+
+	$menuParam = array('divClass' => '', 'ulId' => '', 'ulClass' => '');
+	switch ($menu_block->getTypeNavigation()) {
+		case GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN:
+			$menuParam['divClass'] = "gan-wrapper gan-top";
+			$menuParam['ulClass'] = "gan-dropdown-list";
+			break;
+		case GoMage_Navigation_Model_Layer::FILTER_TYPE_PLAIN:
+			$menuParam['divClass'] = "gan-wrapper gan-top";
+			$menuParam['ulId'] = "gan_nav_top";
+			$menuParam['ulClass'] = "gan-plain-list";
+			break;
+		default:
+			$menuParam['divClass'] = "nav-container";
+			$menuParam['ulId'] = "nav";
+			break;
+	}
+	$menuParam['divClass'] = $menuParam['divClass'].' socourus-menu-bot';
+	?>
+	<div class="<?php echo $menuParam['divClass']; ?>">
+		<div class="ie-navigation-rounded-corner ie-navigation-bot-border">&nbsp;</div>
+		<ul <?php echo (($menuParam['ulId'])? 'id="'.$menuParam['ulId'].'"' : '');?><?php echo (($menuParam['ulClass'])? 'class="'.$menuParam['ulClass'].'"' : '');?>>
+			<?php echo $htmlMenuBot; ?>
+		</ul>
+	</div>
+<? endif; ?>
+<script type="text/javascript">
+	decorateGeneric($$('.socourus-menu-top ul li'));
+	decorateGeneric($$('.socourus-menu-bot ul li'));
+	
+	jQuery('#gan_nav_top li.last').addClass('destaque-menu-item-vermelho');
+	jQuery('#gan_nav_top li.last').prev('li').addClass('destaque-menu-item-azul');
+	
+	jQuery('#gan_nav_top li.destaque-menu-item-vermelho').append('<div class="custom-border"><div class="ie-navigation-rounded-corner ie-navigation-bot-vermelho-esquerda">&nbsp;</div><div class="ie-navigation-rounded-corner ie-navigation-bot-vermelho-direita">&nbsp;</div></div>');
+	jQuery('#gan_nav_top li.destaque-menu-item-vermelho').append('<div class="custom-border-white">&nbsp;</div>');
+	jQuery('#gan_nav_top li.destaque-menu-item-azul').append('<div class="custom-border"><div class="ie-navigation-rounded-corner ie-navigation-bot-azul-esquerda">&nbsp;</div><div class="ie-navigation-rounded-corner ie-navigation-bot-azul-direita">&nbsp;</div></div>');
+	jQuery('#gan_nav_top li.destaque-menu-item-azul').append('<div class="custom-border-white">&nbsp;</div>');
+	/*
+	decorateList('.socourus-menu-top ul');
+	decorateList('.socourus-menu-bot ul');
+	*/
+	jQuery(document).ready(function(){
+		jQuery('.level0.parent').each(function(){
+			var maiorTam = 0;
+			var somaLargura = 0;
+			
+			decorateGeneric(jQuery(this).find('.gan-plain-item-border-column'), ['first','last']);
+			//decorateGeneric(jQuery(this).find('.gan-plain-item-extra-column'), ['first','last']);
+			jQuery(this).find('.gan-plain-item').each(function(){
+				decorateGeneric(jQuery(this).find('li'));
+			});
+			
+			
+			
+			jQuery(this).find('.gan-plain-item').each(function(){
+				if(jQuery(this).height() > maiorTam) maiorTam = jQuery(this).height();
+				somaLargura += jQuery(this).outerWidth();
+			});
+			jQuery(this).find('.gan-plain-item').each(function(){
+				jQuery(this).height(maiorTam);
+			});
+			jQuery(this).find('.gan-plain').width(somaLargura);
+		});
+		
+	});
+</script>

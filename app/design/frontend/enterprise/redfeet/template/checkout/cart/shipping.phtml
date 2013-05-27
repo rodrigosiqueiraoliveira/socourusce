@@ -1,0 +1,170 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * @see Mage_Checkout_Block_Cart_Shipping
+ */
+?>
+<div class="shipping">
+    <!--<h2><?php echo $this->__('Estimate Shipping and Tax') ?></h2>-->
+    <div class="shipping-form">
+       <form action="<?php echo $this->getUrl('checkout/cart/estimatePostAjax') ?>" method="post" id="shipping-zip-form" onsubmit="coShippingMethodForm.submit(); return false;">
+            <p>
+                Digite o <span>CEP do endere&ccedil;o de entrega</span>
+                <br />para calcular o valor do <span>frete</span>
+            </p>
+            <ul class="form-list">
+                <li style="display: none;">
+                    <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>
+                    </div>
+                </li>
+            <?php if($this->getStateActive()): ?>
+                <li>
+                    <label for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?><?php echo $this->__('State/Province') ?></label>
+                    <div class="input-box">
+                        <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" style="display:none;"<?php echo ($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
+                            <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                        </select>
+                       <script type="text/javascript">
+                       //<![CDATA[
+                           $('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
+                       //]]>
+                       </script>
+                       <input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($this->getEstimateRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+                   </div>
+                </li>
+            <?php endif; ?>
+            <?php if($this->getCityActive()): ?>
+                <li>
+                    <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>
+                    <div class="input-box">
+                        <input class="input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif;?>" id="city" type="text" name="estimate_city" value="<?php echo $this->htmlEscape($this->getEstimateCity()) ?>" />
+                    </div>
+                </li>
+            <?php endif; ?>
+                <li>
+                    <!--<label for="postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>-->
+                    <div class="input-box">
+                        <input class="input-text mask-postcode" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->htmlEscape($this->getEstimatePostcode()) ?>" />
+                    </div>
+                </li>
+            </ul>
+            <div class="buttons-set">
+                <button type="button" title="<?php echo $this->__('Estimate shipping') ?>" onclick="coShippingMethodForm.submit()" class="button socourus-btn-postcode"><span><?php echo $this->__('Estimate shipping') ?></span></button>
+            </div>
+            <div class="link-postcode">
+                <a href="http://www.buscacep.correios.com.br/" target="_blank"><?php echo $this->__("Don\'t know your Postal Code?"); ?></a>
+            </div>
+        </form>
+        <script type="text/javascript">
+        //<![CDATA[
+            new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+        //]]>
+        </script>
+
+        <div id="modal-calcular-frete">
+            <div class="ajax-container">
+                <span id="ajax-custom-loader">&nbsp;</span>
+            </div>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[        
+            var coShippingMethodForm = new VarienForm('shipping-zip-form');
+            var countriesWithOptionalZip = <?php echo $this->helper('directory')->getCountriesWithOptionalZip(true) ?>;
+
+            coShippingMethodForm.submit = function () {
+                var country = $F('country');
+                var optionalZip = false;
+
+                for (i=0; i < countriesWithOptionalZip.length; i++) {
+                    if (countriesWithOptionalZip[i] == country) {
+                        optionalZip = true;
+                    }
+                }
+                if (optionalZip) {
+                    $('postcode').removeClassName('required-entry');
+                }
+                else {
+                    $('postcode').addClassName('required-entry');
+                }
+                
+                formEstimateSubmitProcess(coShippingMethodForm);
+                return false;
+                //return VarienForm.prototype.submit.bind(coShippingMethodForm)();
+            }
+            
+            function formEstimateSubmitProcess(formObj) {
+                var formEstimate = jQuery(formObj.form);
+                
+                var pais = formEstimate.find('#country').val();
+                var cep = formEstimate.find('#postcode').val();
+                
+                if(jQuery.trim(cep) != '') {
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: 'json',
+                        url: formEstimate.attr('action'),
+                        data: {
+                            country_id : pais, estimate_postcode : cep
+                        },
+                        beforeSend: function(){
+                            jQuery('#modal-calcular-frete').html('<div class="ajax-container"><span id="ajax-custom-loader">&nbsp;</span></div>');
+                            jQuery('#modal-calcular-frete').dialog('open');
+                        },
+                        error: function(){
+                            jQuery('#modal-calcular-frete').dialog('close');
+                            jQuery('#modal-calcular-frete').html('<div class="ajax-container"><span id="ajax-custom-loader">&nbsp;</span></div>');
+                        },
+                        success: function(data) {
+                            if(jQuery('#modal-calcular-frete')) {
+                                jQuery('#modal-calcular-frete').html(data.shippingRates);
+                            }
+                            
+                        }
+                    });
+                }
+            }
+            
+            jQuery( "#modal-calcular-frete" ).dialog({
+                autoOpen: false,
+                title: '<?php echo $this->__('Select Shipping Method'); ?>',
+                closeText: '<?php echo $this->__('Close'); ?>',
+                dialogClass: "modal-calculo-frete",
+                height: 300,
+                width: 350,
+                modal: true,
+                closeOnEscape: true,
+                close: function() {
+                    
+                }
+            });
+        //]]>
+        </script>
+    </div>
+</div>

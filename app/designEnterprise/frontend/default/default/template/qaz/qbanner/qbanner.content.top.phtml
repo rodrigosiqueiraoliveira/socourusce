@@ -1,0 +1,109 @@
+<?php $banners = $this->getQbanner(1); ?>
+<?php if (count($banners->getData()) > 0) : ?>
+    <?php foreach ($banners as $banner): ?>
+        <?php
+        $showIn = $this->addShowInFilter($banner);
+        if (!$showIn)
+            continue;
+        $duration = $banner->getDuration();
+        if (!$duration)
+            $duration = 5000;
+        $effect = $banner->getEffect();
+        $showCaption = $banner->getShowCaption();
+        $showNext = $banner->getShowNextPrev();
+        $showPagination = $banner->getShowPagination();
+        $autoSlide = $banner->getAutoSlide();
+        if (!$autoSlide)
+            $duration = 0;
+        $mouseoverStop = $banner->getMouseoverStop();
+        if ($mouseoverStop)
+            $mouseoverStop = 'true';
+        else
+            $mouseoverStop = 'false';
+        $bannerWidth = $banner->getWidth();
+        $bannerHeight = $banner->getHeight();
+        ?>
+        <div class="clear"></div>
+        <div class="qbanner content-top" style="width:<?php echo $bannerWidth . 'px'; ?>; height: <?php echo $bannerHeight . 'px'; ?>;">
+            <div id="slides-content-top-<?php echo $banner->getId(); ?>" class="qbanner-slide">
+                <div class="slides_container">
+                    <?php $images = $banner->getImageList(); ?>
+                    <?php if (sizeof($images) > 0) : ?>
+                        <?php foreach ($images as $image): ?>
+                            <?php if (sizeof($images) == 1): ?>
+                                <div class="slide" style="width:<?php echo $bannerWidth . 'px'; ?>; height: <?php echo $bannerHeight . 'px'; ?>;">
+                                    <a href="<?php echo $image['link'];?>" target="_blank"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'qaz/qbanner' . $image['file']; ?>"alt="<?php echo $image['label']; ?>"/></a>
+                                    <?php if ($showCaption): ?>
+                                        <div class="caption" style="bottom:0">
+                                            <p><?php echo $image['label']; ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="slide" style="width:<?php echo $bannerWidth . 'px'; ?>; height: <?php echo $bannerHeight . 'px'; ?>;">
+                                <a href="<?php echo $image['link'];?>" target="_blank"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'qaz/qbanner' . $image['file']; ?>"alt="<?php echo $image['label']; ?>"/></a>
+                                <?php if ($showCaption): ?>
+                                    <div class="caption" style="bottom:0">
+                                        <p><?php echo $image['label']; ?></p>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <?php if ($showNext): ?>
+                    <a href="#" class="prev" style="top:<?php echo $bannerHeight / 2 - 20; ?>px;left:0px"><img src="<?php echo $this->getSkinUrl('qaz/qbanner/images/b_prev.png'); ?>"  alt="Arrow Prev"/></a>
+                    <a href="#" class="next" style="top:<?php echo $bannerHeight / 2 - 20; ?>px;right:0px"><img src="<?php echo $this->getSkinUrl('qaz/qbanner/images/b_next.png'); ?>" alt="Arrow Next"/></a>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <script>
+        <?php if ($showIn): ?>
+                $j(function(){
+                    $j('#slides-content-top-<?php echo $banner->getId(); ?>').slides({
+                        preload : true,
+                        preloadImage: 'skin/frontend/default/default/qaz/qbanner/images/loading.gif',
+                        play: <?php echo $duration; ?>,
+                        pause: 1000,
+                        hoverPause: <?php echo $mouseoverStop; ?>,
+                        effect : '<?php echo $effect; ?>',
+                        animationStart: function(current){
+                            $j('.caption').animate({
+                                bottom:-40
+                            },200);
+                            if (window.console && console.log) {
+                                // example return of current slide number
+                                console.log('animationStart on slide: ', current);
+                            };
+                        },
+                        animationComplete: function(current){
+                            $j('.caption').animate({
+                                bottom:0
+                            },250);
+                            if (window.console && console.log) {
+                                // example return of current slide number
+                                console.log('animationComplete on slide: ', current);
+                            };
+                        },
+                        slidesLoaded: function() {
+                            $j('.caption').animate({
+                                bottom:0
+                            },250);
+                        }
+                    });
+                });
+            </script>
+            <style>
+                #slides-content-top-<?php echo $banner->getId() ?>  .caption{width: <?php echo $bannerWidth; ?>px;}
+                #slides-content-top-<?php echo $banner->getId() ?> .pagination {margin:0 auto;left:<?php echo ($bannerWidth - 50 ) / 2; ?>px;}
+            </style>
+            <?php if (!$showPagination): ?>
+                <style>
+                    #slides-content-top-<?php echo $banner->getId() ?> .pagination {display:none;}
+                </style>
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+

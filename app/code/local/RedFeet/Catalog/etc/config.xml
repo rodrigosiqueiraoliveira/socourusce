@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<RedFeet_Catalog>
+			<version>0.1.0</version>
+		</RedFeet_Catalog>
+	</modules>
+	<global>
+		<blocks>
+			<catalog>
+				<rewrite>
+					<navigation>RedFeet_Catalog_Block_Navigation</navigation>
+					<product_view>RedFeet_Catalog_Block_Product_View</product_view>
+					<product_list>RedFeet_Catalog_Block_Product_List</product_list>
+				</rewrite>
+			</catalog>
+		</blocks>
+		<helpers>
+			<catalog>
+				<rewrite>
+					<category>RedFeet_Catalog_Helper_Category</category>
+				</rewrite>
+			</catalog>
+		</helpers>
+		<models>
+			<redfeet_catalog>
+				<class>RedFeet_Catalog_Model</class>
+				<resourceModel>catalog_resource</resourceModel>
+			</redfeet_catalog>
+			<catalog>
+				<rewrite>
+					<category>RedFeet_Catalog_Model_Category</category>
+				</rewrite>
+			</catalog>
+		</models>
+	</global>
+</config>

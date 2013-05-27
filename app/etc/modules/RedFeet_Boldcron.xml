@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_Boldcron>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Checkout />
+                <Mage_Payment />
+            </depends>
+            <version>0.2.0</version>
+        </RedFeet_Boldcron>
+    </modules>
+</config>

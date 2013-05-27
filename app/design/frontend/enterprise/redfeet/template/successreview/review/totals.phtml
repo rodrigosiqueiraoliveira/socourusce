@@ -1,0 +1,23 @@
+<tr>
+    <td colspan="3"></td>
+    <td class="a-center" style="font-size: 15px; background-color: #c5c5c5; color: #fff "><b>FRETE</b></td>    
+	<td class="a-center" colspan="5" class="success_totals">
+		<b><?php echo $this->getShippingTax(); ?></b>
+	</td>
+</tr>
+<tr>
+    <td colspan="3"></td>
+    <td class="a-center" style="font-size: 15px; background: #FDBF00; color: #fff";><b>DESCONTO</b></td>
+	<td colspan="5" class="a-center success_totals">
+		<b><?php echo $this->getDiscount(); ?></b>
+	</td>	
+</tr>
+<tr>
+    <td  colspan="3" class="col-bottom-last">
+        <div class="socourus-success-info"></div>
+    </td>
+    <td class="a-center" style="font-size: 24px; color: #F47A20; font-size: 21px;">TOTAL</td>
+	<td class="a-center"  style="font-size: 24px; font-size: 21px;">
+		<b><?php echo $this->getGrandTotal(); ?></b>
+	</td>
+</tr>

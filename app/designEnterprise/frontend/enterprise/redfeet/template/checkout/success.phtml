@@ -1,0 +1,171 @@
+
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+    <div class="checkout-steps socourus-checkout-steps">
+        <!--<div class="page-title title-buttons">
+            <h1><?php echo $this->__('Shopping Cart') ?></h1>
+        </div>-->
+        <div class="socourus-checkout-step">
+            <span>&nbsp;</span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-1 ">
+            <span>
+                <span>Meu Carrinho</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-2">
+            <span>
+                <span>Entrega e Pagamento</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-3 active">
+            <span>
+                <span>Pedido Finalizado</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step">
+            <span><span>&nbsp;</span></span>
+        </div>
+        <script type="text/javascript">
+            decorateGeneric(jQuery('.socourus-checkout-steps .socourus-checkout-step'), ['first','last']);
+        </script>
+    </div>
+<?php
+	// set the order model 
+	$order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+	// get order items 
+	$items = $order->getItemsCollection();
+	
+	$customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+	
+	$payment = $order->getPayment();
+	
+	$shipping_description = $order->getShippingDescription();
+	
+	if (strpos($shipping_description,'Correios') !== false){
+		$shipping_description = explode('-', $shipping_description);
+		$delivery_service = $shipping_description[0]." - ".$shipping_description[1];
+		$shipping_deadline = $shipping_description[2];
+	}else{
+		$delivery_service = $shipping_description;
+		$shipping_deadline = "Não há prazo de entrega para o serviço de entrega acima.";
+	}
+	
+	$order_hour_date = explode(" ", $order->getCreatedAt());
+	$date = explode("-", $order_hour_date[0]);
+	$order_date = $date[2]."/".$date[1]."/".$date[0];
+	
+	$order_hour = $order_hour_date[1];
+	
+	if($order->getCustomerId() === NULL){
+		$name_billing =  $order->getBillingAddress()->getName();
+		$lastname_billing = $order->getBillingAddress()->getLastName();
+		$street_billing = $order->getBillingAddress()->getStreet();
+		$city_billing = $order->getBillingAddress()->getCity();
+		$region_billing = $order->getBillingAddress()->getRegion();
+		$zipcode_billing = $order->getBillingAddress()->getPostcode();
+	}
+	//else, they're a normal registered user.
+	else {
+		$name_billing =  $customer->getDefaultBillingAddress()->getName();
+		$lastname_billing = $customer->getDefaultBillingAddress()->getLastName();
+		$street_billing = $customer->getDefaultBillingAddress()->getStreet();
+		$city_billing = $customer->getDefaultBillingAddress()->getCity();
+		$region_billing = $customer->getDefaultBillingAddress()->getRegion();
+		$zipcode_billing = $customer->getDefaultBillingAddress()->getPostcode();
+	}
+	
+	if($order->getCustomerId() === NULL){
+		$name_shipping =  $order->getShippingAddress()->getName();
+		$lastname_shipping = $order->getShippingAddress()->getLastName();
+		$street_shipping = $order->getShippingAddress()->getStreet();
+		$city_shipping = $order->getShippingAddress()->getCity();
+		$region_shipping = $order->getShippingAddress()->getRegion();
+		$zipcode_shipping = $order->getShippingAddress()->getPostcode();
+	}
+	//else, they're a normal registered user.
+	else {
+		$name_shipping =  $customer->getDefaultShippingAddress()->getName();
+		$lastname_shipping = $customer->getDefaultShippingAddress()->getLastName();
+		$street_shipping = $customer->getDefaultShippingAddress()->getStreet();
+		$city_shipping = $customer->getDefaultShippingAddress()->getCity();
+		$region_shipping = $customer->getDefaultShippingAddress()->getRegion();
+		$zipcode_shipping = $customer->getDefaultShippingAddress()->getPostcode();
+	}
+?>
+
+<div id="success_container">
+	<div class="normal_rectangle normal_rectangle1 align-left">
+		<?php if ($this->getOrderId()):?>
+		<?php if ($this->getCanViewOrder()) :?>
+			<span class="success_title"><h2><h2>Número do Pedido</h2></span>
+			<span class="sucess-order-id"><?php echo $this->__('%s', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></span>
+		<?php  else :?>
+			<p><?php echo $this->__('%s', $this->escapeHtml($this->getOrderId())) ?></p>
+		<?php endif;?>
+			<p><?php echo "A confirmação do seu pedido foi enviada para o e-mail <b>".$customer->getEmail()."</b>." ?></p>
+		<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+		<?php endif;?>
+			<p>Assim que o pagamento for aprovado será enviiado um email de confirmação.</p>
+			<p><a target="_blank" href="<?php echo $this->getPrintUrl() ?>"><img src="<?php echo $this->getSkinUrl(); ?>/images/imprimir-boleto.png"  /></a></p>
+		<?php endif;?>
+		
+	</div>
+	
+	<div class="normal_rectangle align-right">
+		<span class="success_title"><h2>Detalhes</h2></span>
+		<p><b>Status do Pedido:</b> <?php echo $order->getStatus(); ?></p>
+		<p><b>Serviço de Entrega:</b> <?php echo $delivery_service; ?></p>
+		<p><b>Prazo de entrega:</b> <?php echo $shipping_deadline; ?></p>
+		<p><b>Data do pedido:</b> <?php echo $order_date." às ".$order_hour; ?></p>
+		<p><b>Forma de pagamento:</b> <?php  echo $payment->getMethodInstance()->getTitle(); ?></p>
+	</div>
+	
+	<div class="small_rectangle align-left">
+		<span class="success_title"><h2>Endereço de Cobranca</h2></span>
+		<p><b><?php echo $name_billing." ".$lastname_billing; ?></b></p>
+		<p><?php echo $street_billing[0]." ".$street_billing[2]; ?></p>
+		<p>Bairro: <?php echo $street_billing[1] ?></p>
+		<p>Cidade: <?php echo $city_billing; ?></p>
+		<p>CEP: <?php echo $zipcode_billing; ?></p>
+	</div>
+	
+	<div class="small_rectangle align-right">
+		<span class="success_title"><h2>Endereço de Entrega</h2></span>
+		<p><b><?php echo $name_shipping." ".$lastname_shipping; ?></b></p>
+		<p><?php echo $street_shipping[0]." ".$street_shipping[2]; ?></p>
+		<p>Bairro: <?php echo $street_shipping[1] ?></p>
+		<p>Cidade: <?php echo $city_shipping; ?></p>
+		<p>CEP: <?php echo $zipcode_shipping; ?></p>
+	</div>
+	
+	<div class="success_cart_container">
+		<?php echo $this->getChildHtml('review_info'); ?>
+	</div>
+</div>
+
+<?php echo $this->getChildHtml('redfeet_home_bot'); ?>

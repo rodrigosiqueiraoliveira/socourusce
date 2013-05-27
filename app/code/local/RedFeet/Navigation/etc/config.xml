@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /**
+ * GoMage Advanced Navigation Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.0
+ * @since        Class available since Release 1.0
+ */
+ -->
+<config>
+    <modules>
+        <RedFeet_Navigation>
+            <version>0.1.0</version>
+        </RedFeet_Navigation>
+    </modules>
+    <global>
+    	<blocks>
+	    <catalog>
+		<rewrite>
+		    <navigation>RedFeet_Navigation_Block_Navigation</navigation>
+		    <layer_view>RedFeet_Navigation_Block_Layer_View</layer_view>
+		    <layer_filter_brandcategory>RedFeet_Navigation_Block_Layer_Filter_Brandcategory</layer_filter_brandcategory>
+		</rewrite>
+	    </catalog>
+	    <adminhtml>
+		<rewrite>	        			        		
+		    <catalog_category_tab_attributes>RedFeet_Navigation_Block_Adminhtml_Catalog_Category_Tab_Attributes</catalog_category_tab_attributes>
+		</rewrite>
+	    </adminhtml>
+	</blocks>
+	<models>
+            <redfeet_navigation>
+                <class>RedFeet_Navigation_Model</class>
+                <resourceModel>gomage_navigation_mysql4</resourceModel>
+            </redfeet_navigation>
+            <catalog>
+            	<rewrite>
+	            <layer>RedFeet_Navigation_Model_Layer</layer>
+		    <layer_filter_category>RedFeet_Navigation_Model_Layer_Filter_Category</layer_filter_category>
+		    <layer_filter_brandcategory>RedFeet_Navigation_Model_Layer_Filter_Brandcategory</layer_filter_brandcategory>
+		    <layer_filter_item>RedFeet_Navigation_Model_Layer_Filter_Item</layer_filter_item>
+	        </rewrite>
+            </catalog>
+	    <catalogsearch>
+            	<rewrite>
+	            <layer>RedFeet_Navigation_Model_Layer</layer>
+		    <layer_filter_category>RedFeet_Navigation_Model_Layer_Filter_Category</layer_filter_category>
+		    <layer_filter_brandcategory>RedFeet_Navigation_Model_Layer_Filter_Brandcategory</layer_filter_brandcategory>
+		    <layer_filter_item>RedFeet_Navigation_Model_Layer_Filter_Item</layer_filter_item>
+	        </rewrite>
+            </catalogsearch>
+	    <catalog_resource_eav_mysql4>
+            	<rewrite>
+	            	<layer_filter_brandcategory>RedFeet_Navigation_Model_Resource_Eav_Mysql4_Layer_Filter_Brandcategory</layer_filter_brandcategory>
+	            </rewrite>
+            </catalog_resource_eav_mysql4>
+        </models>
+    </global>
+</config>

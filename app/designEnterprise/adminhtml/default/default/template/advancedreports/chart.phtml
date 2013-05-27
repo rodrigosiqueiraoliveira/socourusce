@@ -1,0 +1,44 @@
+<?php
+/**
+* aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento ENTERPRISE edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento ENTERPRISE edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Advancedreports
+ * @version    2.4.0
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ */
+?>
+<?php
+/** @var AW_Advancedreports_Block_Chart $this */
+?>
+<?php if( $this->canShow() ): ?>
+    <?php $_containerStyle = "width:{$this->getWidth()}px;height:{$this->getHeight()}px; "; ?>
+    <?php if ($this->_type === AW_Advancedreports_Block_Chart::CHART_TYPE_MAP) : ?>
+        <script type="text/javascript">
+            awarcountry.drawChart(<?php echo Zend_Json::encode($this->getDataForMap()) ?>);
+        </script>
+        <div id='chart_div' style="<?php echo $_containerStyle ?>;margin: 0 auto;"></div>
+    <?php else : ?>
+    <p style="margin:0 auto; padding-bottom: 5px; text-align:center;"><img src="<?php echo $this->getTunnelUrl(true) ?>" alt="<?php echo $this->__('Chart'); ?>" title="<?php echo $this->__('Chart'); ?>" /></p>
+    <?php endif ?>
+<?php else:  ?>
+    <p class="switcher" style="margin:0 auto; padding-bottom: 5px; text-align:center; color: #666;"><?php echo $this->__('It is not possible to build the chart.').'<br />'.$this->__('Please use shorter period or decrease the granularity (use month instead of day for long periods).') ?></p>
+<?php endif; ?>

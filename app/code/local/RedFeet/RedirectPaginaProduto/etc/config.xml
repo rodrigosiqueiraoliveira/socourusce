@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_RedirectPaginaProduto>
+        <version>0.1.0</version>
+         <depends>
+            <Mage_Catalog />
+        </depends>
+        </RedFeet_RedirectPaginaProduto>
+    </modules>
+    <!-- define blocks, models, helpers in global area -->
+    <global>
+    </global>
+    
+    <frontend>
+        <routers>
+            <redirectpaginaproduto>
+                <use>standard</use>
+                <args>
+                    <module>RedFeet_RedirectPaginaProduto</module>
+                    <frontName>redirectpaginaproduto</frontName>
+                </args>
+            </redirectpaginaproduto>
+        </routers>
+        <catalog>
+            <args>
+                <modules>
+                    <RedFeet_RedirectPaginaProduto before="Mage_Catalog">RedFeet_RedirectPaginaProduto_Catalog_Product</RedFeet_RedirectPaginaProduto>
+                </modules>
+            </args>
+        </catalog>
+        <!--<layout>
+            <updates>
+                <moneybookers>
+                    <file>moneybookers.xml</file>
+                </moneybookers>
+            </updates>
+        </layout>-->
+    </frontend>
+    
+</config>

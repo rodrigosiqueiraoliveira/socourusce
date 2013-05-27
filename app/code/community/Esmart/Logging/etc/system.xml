@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smart Commerce do Brasil
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@e-smart.com.br so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.e-smart.com.br for more information.
+ *
+ * @category    Esmart
+ * @package     Esmart_Logging
+ * @author      Tiago Sampaio <tiago.sampaio@e-smart.com.br>
+ * @copyright   Copyright (c) 2012 Smart Commerce do Brasil. (http://www.e-smart.com.br)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <tabs>
+        <esmart translate="label" module="esmart_logging">
+            <label>e-smart</label>
+            <sort_order>10</sort_order>
+        </esmart>
+    </tabs>
+    <sections>
+        <esmart_logging>
+            <label>Admin Logging</label>
+            <tab>esmart</tab>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <rotation translate="label">
+                    <label>Admin Actions Log Archiving</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>100</sort_order>
+                    <fields>
+                        <lifetime translate="label">
+                            <label>Log Entry Lifetime, Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </lifetime>
+                        <frequency translate="label">
+                            <label>Log Archiving Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>esmart_logging/source_frequency</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </frequency>
+                    </fields>
+                </rotation>
+                <esmart_logging translate="label">
+                    <label>Admin Actions Logging</label>
+                    <show_in_default>1</show_in_default>
+                    <sort_order>200</sort_order>
+                    <sort_fields>
+                        <by>label</by>
+                    </sort_fields>
+                    <fields>
+                        <actions translate="label">
+                            <label>Enabled Actions</label>
+                            <frontend_model>esmart_logging/adminhtml_system_config_actions</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <show_in_default>1</show_in_default>
+                        </actions>
+                    </fields>
+                </esmart_logging>
+            </groups>
+        </esmart_logging>
+    </sections>
+</config>

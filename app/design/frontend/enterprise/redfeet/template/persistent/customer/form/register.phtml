@@ -1,0 +1,311 @@
+<div class="account-create">
+    <div class="page-title">
+        <h1><?php echo $this->__('Register') ?></h1>
+	<div class="subtitle">
+	    <span>
+		Informe os seus dados para continuar
+	    </span>
+	</div>
+    </div>
+    <?php echo $this->getChildHtml('form_fields_before')?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate-register" enctype="multipart/form-data">
+	<!-- Dados de Acesso -->
+	<div class="fieldset">
+            <h2 class="legend"><?php echo $this->__('Access data') ?></h2>
+            <ul class="form-list socourus-form-list">
+		<li class="wide">
+                    <label for="email_address" class="required"><em>*</em><?php echo $this->__('Email') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="email" id="email_address" value="<?php echo $this->htmlEscape($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="confirmation" title="<?php echo $this->__('Confirm password') ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                        </div>
+                    </div>
+                </li>
+                <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+            </ul>
+            <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+        </div>
+	<div class="divider"></div>
+	
+	<!-- Tipo de Cadastro -->
+        <div class="fieldset">
+	    <h2 class="legend"><?php echo $this->__('Type of registration') ?></h2>
+	    <ul class="form-list socourus-form-list">
+		<li class="list-radio-box">
+		    <div class="input-box radio-box-fisico">
+    			<input type="radio" id="group_id" name="group_id" value="5" checked="checked"/>
+    			<label for="group_id"><?php echo $this->__('Pessoa física') ?> </label>
+		    </div>
+		    <div class="input-box radio-box-juridico">
+    			<input type="radio" id="group_id" name="group_id" value="4" />
+    			<label for="group_id"><?php echo $this->__('Pessoa jurídica') ?> </label>
+		    </div>
+		</li>
+	    </ul>
+	</div>
+	<div class="divider"></div>
+	
+	<?php //echo "<pre>"; print_r($this->getFormData()); echo "</pre>"; ?>
+	
+
+	<div class="fieldset">
+            <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+            <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+            <h2 class="legend"><?php echo $this->__('Personal data') ?></h2>
+            <ul class="form-list socourus-form-list">
+                <input id="firstname-value" value="<?php echo $this->htmlEscape($this->getFormData()->getFirstname()) ?>" type="hidden" />
+                <input id="lastname-value" value="<?php echo $this->htmlEscape($this->getFormData()->getLastname()) ?>" type="hidden" />
+                <input id="taxvat-value" value="<?php echo $this->htmlEscape($this->getFormData()->getTaxvat()) ?>" type="hidden" />
+                <input id="rg-value" value="<?php echo $this->htmlEscape($this->getFormData()->getRg()) ?>" type="hidden" />
+                <input id="group_id-value" value="<?php echo $this->htmlEscape($this->getFormData()->getGroupId()) ?>" type="hidden" />
+                <li class="fields register-name">
+			<?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+                </li>
+		<li class="fields li-fields-cpf li-fields-hide-marker">
+                    <div class="field field-cpf-cnpj-register">
+			<label class="required taxvat-register-label" for="taxvat"><em>*</em>CPF</label>
+			<div class="input-box">
+			    <input type="text" class="input-text required-entry register-taxvat" title="CPF" value="<?php echo $this->htmlEscape($this->getFormData()->getTaxVat()) ?>" name="taxvat" id="taxvat" autocomplete="off">
+			</div>
+		    </div>
+                    <div class="field field-rg-register">
+			<label for="rg" class="required"><em>*</em>RG</label>
+			<div class="input-box">
+				<input type="text" class="input-text required-entry mask-rg" value="<?php echo $this->htmlEscape($this->getFormData()->getTaxVat()) ?>" name="rg" id="rg" autocomplete="off">
+			</div>
+		    </div>
+		</li>
+		
+		<li class="fields li-fields-hide-marker">
+                    <div class="field field-dob-register">
+			<?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+			<?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?>
+		    </div>
+                    <div class="field field-gender-register">
+			<?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+			<?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?>
+		    </div>
+		</li>
+
+		<?php $customerAttributes = $this->getChild('customer_form_user_attributes');?>
+		<?php if ($customerAttributes): ?>
+		    <?php $customerAttributes->setShowContainer(false);?>
+		    <?php $this->restoreSessionData($customerAttributes->getForm());?>
+		    <?php echo $customerAttributes->toHtml()?>
+		<?php endif;?>
+		<li class="wholesale" style="display:none;">
+		    <ul class="form-list socourus-form-list">
+			<li class="wide">
+			    <label class="required" for="razao_social"><em>*</em>Razão Social</label>
+			    <div class="input-box">
+				<input type="text" class="input-text required-entry" value="<?php echo $this->htmlEscape($this->getFormData()->getRazaoSocial()) ?>" name="razao_social" id="razao_social">
+			    </div>
+			</li>
+			<li class="wide">
+			    <label for="nome_fantasia" class="required"><em>*</em>Nome fantasia</label>
+			    <div class="input-box">
+				<input type="text" class="input-text required-entry" value="<?php echo $this->htmlEscape($this->getFormData()->getNomeFantasia()) ?>" name="nome_fantasia" id="nome_fantasia">
+			    </div>
+			</li>
+			<li class="fields relative-position-to-li li-fields-relocate-marker">
+			    <div class="field" style="position: relative;">
+				<label class="required" for="inscricao_estadual"><em>*</em>Inscrição estadual</label>
+				<div class="input-box">
+				    <input type="text" class="input-text required-entry" value="<?php echo $this->htmlEscape($this->getFormData()->getInscricaoEstadual()) ?>" name="inscricao_estadual" id="inscricao_estadual">
+				</div>
+				<div class="input-box input-box-isento">
+				    <div class="input-box">
+					<input type="checkbox" name="isento" title="Isento" value="1" id="isento"<?php if($this->getFormData()->getIsento()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+				    </div>
+				    <label class="required" for="isento">Isento</label>
+				</div>
+			    </div>
+			</li>
+		    </ul>
+		</li>
+            </ul>
+        </div>
+        <div class="divider"></div>
+	
+	<!-- Endereços -->
+	<?php /* if($this->getShowAddressFields()): ?>
+	    <div class="fieldset">
+		<input type="hidden" name="create_address" value="1" />
+		<h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
+		<ul class="form-list">
+		    <li class="fields">
+			<div class="field">
+			    <label for="zip" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+			    <div class="input-box">
+				<input type="text" name="postcode" value="<?php echo $this->htmlEscape($this->getFormData()->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international required-entry mask-postcode" />
+			    </div>
+			</div>
+			<div class="field" style="display:none;">
+			    <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+			    <div class="input-box">
+				<?php echo $this->getCountryHtmlSelect() ?>
+			    </div>
+			</div>
+		    </li>
+		    <li class="fields">
+			    <div class="field">
+				    <label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+				    <div class="input-box">
+					<select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select">
+					    <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+					</select>
+					<script type="text/javascript">
+					//<![CDATA[
+					    $('region_id').setAttribute('defaultValue',  "<?php echo $this->getFormData()->getRegionId() ?>");
+					//]]>
+					</script>
+					<input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($this->getRegion()) ?>" title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+				    </div>
+			    </div>
+		    </li>
+		    <li>
+			<div class="field">
+			    <label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
+			    <div class="input-box">
+				<input type="text" name="city" value="<?php echo $this->htmlEscape($this->getFormData()->getCity()) ?>" title="<?php echo $this->__('City') ?>" class="input-text required-entry" id="city" />
+			    </div>
+			</div>
+			
+		    </li>                
+		    <li class="wide">
+			    <div class="field">
+				    <label for="street_1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
+				    <div class="input-box">
+					    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(0)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text required-entry" />
+				    </div>
+			    </div>
+		    </li>
+		    <li class="wide">
+			    <div class="field">
+				    <label for="street_2" class="required"><em>*</em><?php echo $this->__('Number') ?></label>
+				    <div class="input-box">
+					    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_2" class="input-text required-entry tiny" />
+				    </div>
+			    </div>
+		    </li>
+		    <li class="wide">
+			    <div class="field">
+				    <label for="street_3" class="required"><em>*</em><?php echo $this->__('Complemento') ?></label>
+				    <div class="input-box">
+					    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(2)) ?>" title="<?php echo $this->__('Complemento') ?>" id="street_3" class="input-text required-entry small" />
+				    </div>
+			    </div>
+		    </li>
+		    <li class="wide">
+			    <div class="field">
+				    <label for="street_4" class="required"><em>*</em><?php echo $this->__('Bairro') ?></label>
+				    <div class="input-box">
+					    <input type="text" name="street[]" value="<?php echo $this->htmlEscape($this->getFormData()->getStreet(3)) ?>" title="<?php echo $this->__('Bairro') ?>" id="street_4" class="input-text required-entry" />
+				    </div>
+			    </div>
+		    </li>
+		    <?php $addressAttributes = $this->getChild('customer_form_address_user_attributes');?>
+		    <?php if ($addressAttributes): ?>
+			<?php $addressAttributes->setEntity($this->getAddress());?>
+			<?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+			<?php $this->restoreSessionData($addressAttributes->getForm(), 'address');?>
+			<?php echo $addressAttributes->setShowContainer(false)->toHtml()?>
+		    <?php endif;?>
+		</ul>
+		    <input type="hidden" name="default_billing" value="1" />
+		    <input type="hidden" name="default_shipping" value="1" />
+	    </div>
+	    <div class="divider"></div>
+	<?php endif; */ ?>
+	
+	<!-- Newsletter -->
+	<div class="box-newsletter">
+	    <?php if ($this->isNewsletterEnabled()): ?>
+		<div class="input-box">
+		    <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('I want to receive exclusive offers and discounts via e-mail') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" checked="checked" />
+		</div>
+		<label for="is_subscribed"><?php echo $this->__('I want to receive exclusive offers and discounts via e-mail') ?></label>
+            <?php endif ?>
+	</div>
+        <div class="buttons-set form-buttons">
+	    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            <button type="submit" class="button socourus-btn-submit" title="<?php echo $this->__('Finalize registration') ?>" onclick="loadSubmit(this.form);"><span><?php echo $this->__('Finalize registration') ?></span></button>
+        </div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+    </form>
+    
+    <div class="box-sac-extras">
+        <div class="box-sac-extra box-sac">
+            <span class="sac-titulo">SAC - Loja Virtual</span>
+            <span class="sac-telefone">11 3813-5689</span>
+            <span class="sac-info">
+                Atendimento de segunda &agrave; sexta-feira, das 8:30 &agrave;s 17:30
+            </span>
+        </div>
+        <div class="box-sac-extra box-atendimento-online">
+            <img src="<?php echo $this->getSkinUrl('images/img_atendimento_online.png');?>" />
+        </div>
+        <div class="box-sac-extra box-pesquisa-catalogo">
+            <?php echo $this->getChildHtml('catalog.search'); ?>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    //<![CDATA[
+    /*jQuery(".radio-box-juridico input").click(function(){
+            jQuery(".register-name").hide();
+    });
+    jQuery(".radio-box-fisico input").click(function(){
+            jQuery(".register-name").show();
+    });*/
+	decorateGeneric($$('.box-sac-extras .box-sac-extra'), ['first', 'last']);
+        var dataForm = new VarienForm('form-validate-register', true);
+	
+	function loadSubmit(form){
+            if(dataForm.validator.validate()) {
+		      form.submit();
+            }
+        }
+	
+        <?php if($this->getShowAddressFields()): ?>
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        <?php endif; ?>
+
+        Form.getElements('form-validate-register').each(function(element) {
+            element.setAttribute('autocomplete', 'off');
+        });
+	
+	jQuery(document).ready(function(){
+	    if(jQuery('#group_id-value').val() == 4){
+	        jQuery('.radio-box-juridico input').trigger('click');
+	    }else{
+	        jQuery('.radio-box-fisico input').trigger('click');
+	    }
+	    
+	    jQuery('.fields').each(function(){
+		decorateGeneric(jQuery(this).find('.field'), ['first','last']);
+	    });
+	    
+	    if(BrowserDetect.browser == 'Explorer') {
+		jQuery('.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento .input-box').css('margin', '0');
+		jQuery('.account-create form .fieldset .socourus-form-list li .input-box.input-box-isento .input-box input').css('margin', '0');
+	    }
+	});
+    //]]>
+    </script>
+</div>

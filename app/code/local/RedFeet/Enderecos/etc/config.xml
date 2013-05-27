@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>        
+	<modules>
+		<RedFeet_Enderecos>
+			<version>0.1.0</version>
+		</RedFeet_Enderecos>
+	</modules>
+	<frontend>
+            <routers>
+                    <enderecos> 
+                            <use>standard</use>
+                            <args>
+                                    <module>RedFeet_Enderecos</module>
+                                    <frontName>enderecos</frontName>
+                            </args>
+                    </enderecos>
+            </routers>
+	</frontend>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_Conf>
+            <active>true</active>
+            <codePool>local</codePool>
+	    <platform>ee</platform>
+        </RedFeet_Conf>
+    </modules>
+</config>

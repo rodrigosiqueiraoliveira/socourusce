@@ -1,0 +1,22 @@
+.amconf-image
+{
+    padding: 3px;
+    margin-right: 5px; margin-bottom: 5px;
+/*    float: left;*/
+}
+
+.attr-cor .amconf-image {
+    border: 1px solid #F47B20;
+}
+
+.amconf-image-selected
+{
+    border: 3px solid #121B53 !important;
+    padding: 1px;
+}
+
+.amconf-images-container
+{
+    width: 100%;
+    clear: both;
+}

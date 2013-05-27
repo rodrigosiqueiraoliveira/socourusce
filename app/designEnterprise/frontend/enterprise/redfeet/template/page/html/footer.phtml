@@ -1,0 +1,162 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php $socourusSac = $this->getChildHtml('socourus_sac', false); ?>
+<?php if($socourusSac != '') { ?>
+<div class="footer-sac">
+    <?php echo $socourusSac; ?>
+</div>
+<? } ?>
+<div class="footer-newsletter">
+    <?php echo $this->getChildHtml('newsletter'); ?>
+</div>
+<div class="footer-container">
+    <div class="footer">
+        <?php //echo $this->getChildHtml('newsletter'); ?>
+        <div class="box-main-content">
+            <div class="box-main-content-left">
+                <div class="box-main-content-left-top">
+                    <div class="box-main-content-left-top-left">
+                        <div class="box-column-title"><span>Institucional</span></div>
+                        <?php echo $this->getChildChildHtml('socourus_footer_links', 'cms_footer_links_institucional'); ?>
+                    </div>
+                    <div class="box-main-content-left-top-right">
+                        <div class="box-column-title"><span>Ajuda e Suporte</span></div>
+                        <?php echo $this->getChildChildHtml('socourus_footer_links', 'cms_footer_links_ajuda_suporte'); ?>
+                    </div>
+                </div>
+                <div class="box-main-content-left-bot">
+                    <div class="box-column-title"><span>Compra Segura Garantida</span></div>
+                    <div class="box-main-content-left-bot-content-images">
+                        <img src="<?php echo $this->getSkinUrl('images/img_seguranca_geotrust.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_seguranca_ebit.png'); ?>" />
+                        <img width="100" src="<?php echo $this->getSkinUrl('images/img_seguranca_clearsale.jpg'); ?>" />
+                    </div>
+                </div>
+            </div>
+            <div class="box-main-content-separador">&nbsp;</div>
+            <div class="box-main-content-mid">
+                <div class="box-column-title"><span>Acompanhe a S&oacute; Courus</span></div>
+                <div class="box-main-content-mid-facebook">
+                    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FSoCourus&amp;width=210&amp;height=200&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:210px; height:200px;" allowTransparency="true"></iframe>
+                </div>
+                <div class="box-main-content-mid-twitter">
+                    <a href="https://twitter.com/SoCourus" class="twitter-follow-button" data-show-count="false" data-lang="pt">Seguir @SoCourus</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
+                <div class="box-main-content-mid-blog">
+                    <a href="http://www.socourus.com.br/blog/" target="_blank">
+                        <img src="<?php echo $this->getSkinUrl('images/img_plugin_blog.png'); ?>" />
+                    </a>
+                </div>
+            </div>
+            <div class="box-main-content-separador">&nbsp;</div>
+            <div class="box-main-content-right">
+                <div class="box-column-title"><span>Formas de Pagamento</span></div>
+                <div class="box-main-content-right-top">
+                    <div class="box-column-label"><span>Cart&otilde;es de cr&eacute;dito em at&eacute; 6x sem juros</span></div>
+                    <div class="box-main-content-right-top-content-images">
+                        <img src="<?php echo $this->getSkinUrl('images/img_cartao_visa.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_cartao_mastercard.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_cartao_american_express.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_cartao_diners.png'); ?>" />
+                    </div>
+                </div>
+                <div class="box-main-content-right-mid">
+                    <div class="box-column-label"><span>Transfer&ecirc;ncia eletr&ocirc;nica</span></div>
+                    <div class="box-main-content-right-mid-content-images">
+                        <img src="<?php echo $this->getSkinUrl('images/img_transferencia_bancobrasil.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_transferencia_itau.png'); ?>" />
+                        <img src="<?php echo $this->getSkinUrl('images/img_transferencia_bradesco.png'); ?>" />
+                    </div>
+                </div>
+                <div class="box-main-content-right-bot">
+                    <div class="box-column-label"><span>Boleto</span></div>
+                    <div class="box-main-content-right-bot-content-images">
+                        <img src="<?php echo $this->getSkinUrl('images/img_pagamento_boleto.png'); ?>" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box-sub-content">
+    <?php
+        $block = Mage::getModel('cms/block')
+        ->setStoreId(Mage::app()->getStore()->getId())
+        ->load('footer_texto_descricao');
+        $htmlContent = '';
+        $htmlTitle = '';
+        if ($block->getIsActive()) {
+            /* @var $helper Mage_Cms_Helper_Data */
+            $helper = Mage::helper('cms');
+            $processor = $helper->getBlockTemplateProcessor();
+            $htmlContent = trim($processor->filter($block->getContent()));
+            $htmlTitle = trim($processor->filter($block->getTitle()));
+        }
+        $htmlPrecoValido = $this->getLayout()->createBlock('cms/block')->setBlockId('footer_aviso_preco_valido')->toHtml();
+    ?>
+    <div class="box-sub-content-top">
+        <?php if($htmlTitle != '') { ?>
+            <div class="box-sub-content-top-title">
+                <span><?php echo $htmlTitle; ?></span>
+            </div>
+        <?php } ?>
+        <?php if($htmlContent != '') { ?>
+            <div class="box-sub-content-top-text">
+                <?php echo $htmlContent; ?>
+            </div>
+        <?php } ?>
+        
+    </div>
+    <?php if(trim($htmlPrecoValido) != '') {?>
+    <div class="box-sub-content-bot">
+        <?php echo trim($htmlPrecoValido); ?>
+    </div>
+    <?php } ?>
+</div>
+<div class="footer-copyright">
+    <div class="footer-copyright-content">
+        <span>Desenvolvimento</span>
+        <a href="http://www.redfeetinternet.com.br/" target="_blank">
+            <img src="<?php echo $this->getSkinUrl('images/selo_footer_redfeet.png'); ?>" />
+        </a>
+    </div>
+    <div class="footer-copyright-content">
+        <span>Consultoria</span>
+        <a href="http://www.mlagrotta.com/" target="_blank">
+            <img src="<?php echo $this->getSkinUrl('images/selo_footer_mlagrotta.png'); ?>" width="83" height="26" />
+        </a>
+    </div>
+</div>
+<!--<address class="copyright"><?php //echo $this->getCopyright() ?></address>-->
+<script type="text/javascript">
+    decorateGeneric($$('.box-main-content-left-bot-content-images img'), ['first', 'last']);
+    decorateGeneric($$('.box-main-content-right-top-content-images img'), ['first', 'last']);
+    decorateGeneric($$('.box-main-content-right-mid-content-images img'), ['first', 'last']);
+    decorateGeneric($$('.box-sub-content > div'), ['first', 'last']);
+    decorateGeneric($$('.footer-copyright .footer-copyright-content'), ['first', 'last']);
+</script>

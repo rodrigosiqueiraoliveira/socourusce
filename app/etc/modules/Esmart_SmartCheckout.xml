@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Esmart_SmartCheckout>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Esmart_SmartCheckout>
+    </modules>
+</config>

@@ -1,0 +1,15 @@
+<?php
+/**
+ * Create account form template
+ *
+ * @see Esmart_Customer_Block_Form_Renderer_Text
+ */
+/* @var $this Esmart_Customer_Block_Form_Renderer_Text */
+?>
+<label for="<?php echo $this->getHtmlId()?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->getLabel() ?></label>
+<div class="input-box">
+    <input type="text" id="<?php echo $this->getHtmlId()?>" name="<?php echo $this->getFieldName()?>" value="<?php echo $this->getEscapedValue() ?>" class="input-text<?php echo $this->getHtmlClass(); ?>" />
+    <?php if ($_message = $this->getAdditionalDescription()) : ?>
+    <div class="validation-advice"><?php echo $_message; ?></div>
+    <?php endif; ?>
+</div>

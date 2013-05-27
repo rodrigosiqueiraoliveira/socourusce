@@ -1,0 +1,56 @@
+<?php
+    $_main_categories = Mage::helper('catalog/category')->getChildById($this->getCurrenCategoryKey())->getChildrenCategories();
+    if ($_main_categories){ ?>
+	<dl id="menu-lateral" class="menu-lateral">
+	<?php foreach ($_main_categories as $_main_category) {
+	    if($_main_category->getIsActive()){
+		if(strtoupper($_main_category->getData('name')) == 'CATEGORIAS') continue;
+		$addClass = "";
+		if(!$_main_category->hasChildren()) $addClass = "disabled";
+		?>
+		<dt class="category-item-menu <?php echo $addClass ?>">
+		    <div class="category-item">
+			<span class="category"><?php echo $_main_category->getData('name');?></span>
+			<div class="category-item-custom-border">&nbsp;</div>
+		    </div>
+		</dt>
+		<dd class="subcategory-list">
+		    <ul>
+		    <?php if($_main_category->hasChildren()){
+			$childCats = $_main_category->getChildrenCategories();
+			foreach($childCats as $childCat){
+			    if($childCat->getisActive()){ ?>
+				<li>
+				    <a href="<?php echo $this->getCategoryUrl($childCat, true); ?>">
+					<?php echo $childCat->getData('name'); ?>
+				    </a>
+				</li>
+			    <? }
+			}
+		    } ?>
+		    </ul>
+		</dd>
+	    <? }
+	} ?>
+	</dl>
+<? } ?>
+<script type="text/javascript">
+    var allPanels = jQuery('.menu-lateral > dd').hide();
+    
+    jQuery('.menu-lateral > dt').click(function() {
+	if(!jQuery(this).hasClass('disabled') && !jQuery(this).hasClass('active')){
+	    allPanels.slideUp();
+	    jQuery('.menu-lateral dt.active').removeClass('active');
+	    jQuery(this).addClass('active');
+	    jQuery(this).next().slideDown();
+	}
+    });
+    
+    //decorateDataList('menu-lateral');
+    decorateGeneric($$('.menu-lateral dt'));
+    decorateGeneric($$('.menu-lateral dd'));
+    
+    jQuery('.subcategory-list').each(function(){
+	decorateList(jQuery(this).find('ul li'));
+    });
+</script>

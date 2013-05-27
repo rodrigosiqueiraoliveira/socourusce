@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Esmart_AdminTheme>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <JR_AdminTheme/>
+            </depends>
+        </Esmart_AdminTheme>
+    </modules>
+</config>

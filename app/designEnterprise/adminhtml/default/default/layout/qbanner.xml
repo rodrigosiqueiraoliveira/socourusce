@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+        <reference name="head">
+            <action method="addJs"><script>qaz/qbanner/mage/adminhtml/product.js</script></action>
+        </reference>
+    </default>
+    <qbanner_adminhtml_qbanner_index>
+        <reference name="content">
+            <block type="qbanner/adminhtml_qbanner" name="qbanner" />
+        </reference>
+    </qbanner_adminhtml_qbanner_index>
+</layout>

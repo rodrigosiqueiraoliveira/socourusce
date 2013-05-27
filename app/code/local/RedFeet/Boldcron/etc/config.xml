@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_Boldcron>
+            <version>0.2.0</version>
+            <depends>
+                <Mage_Payment />
+                <Mage_Checkout />
+            </depends>
+        </RedFeet_Boldcron>
+    </modules>
+ 
+    <global>        
+        <blocks>
+            <boldcron>
+                <class>RedFeet_Boldcron_Block</class>
+            </boldcron>
+            <!--
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view_tab_info>RedFeet_Boldcron_Block_Adminhtml_Sales_Order_View_Tab_Info</sales_order_view_tab_info>
+                </rewrite>
+            </adminhtml>
+            -->
+            <payment>
+                <rewrite>
+                    <info_default>RedFeet_Boldcron_Block_Info_Pay</info_default>
+                </rewrite>
+                <rewrite>
+                    <form>RedFeet_Boldcron_Block_Form_Pay</form>
+                </rewrite>
+            </payment>
+            <checkout>
+                <rewrite>
+                    <onepage_success>RedFeet_Boldcron_Block_Checkout_Onepage_Success</onepage_success>
+                </rewrite>
+            </checkout>
+        </blocks>
+        
+        <helpers>
+            <boldcron>
+                <class>RedFeet_Boldcron_Helper</class>
+            </boldcron>
+        </helpers>
+ 
+        <models>
+            <boldcron>
+                <class>RedFeet_Boldcron_Model</class>
+            </boldcron>
+        </models>
+ 
+        <resources>
+            <boldcron_setup>
+                <setup>
+                    <module>RedFeet_Boldcron</module>
+                    <class>RedFeet_Boldcron_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </boldcron_setup>
+            <boldcron_write>
+                <connection>
+                  <use>core_write</use>
+                </connection>
+            </boldcron_write>
+            <boldcron_read>
+               <connection>
+                <use>core_read</use>
+              </connection>
+            </boldcron_read>
+        </resources>
+        
+        <payment>
+            <cc>
+                <types>
+                    <AE>
+                        <code>AE</code>
+                        <name>American Express</name>
+                        <order>0</order>
+                    </AE>
+                    <AU>
+                        <code>AU</code>
+                        <name>Aura</name>
+                        <order>10</order>
+                    </AU>
+                    <PC>
+                        <code>PC</code>
+                        <name>Cartão PontoCred</name>
+                        <order>20</order>
+                    </PC>
+                    <EX>
+                        <code>EX</code>
+                        <name>Cartão Extra</name>
+                        <order>30</order>
+                    </EX>
+                    <CB>
+                        <code>CB</code>
+                        <name>Cartão CompraBem</name>
+                        <order>40</order>
+                    </CB>
+                    <PA>
+                        <code>PA</code>
+                        <name>Cartão Pão de Açúcar</name>
+                        <order>50</order>
+                    </PA>
+                    <SE>
+                        <code>SE</code>
+                        <name>Cartão Sendas</name>
+                        <order>60</order>
+                    </SE>
+                    <EP>
+                        <code>EP</code>
+                        <name>Cartão Extra Presentes</name>
+                        <order>70</order>
+                    </EP>
+                    <PL>
+                        <code>PL</code>
+                        <name>Cartão Plenocard</name>
+                        <order>80</order>
+                    </PL>
+                    <PE>
+                        <code>PE</code>
+                        <name>Cartão Personalcard</name>
+                        <order>90</order>
+                    </PE>
+                    <DN>
+                        <code>DN</code>
+                        <name>Diners</name>
+                        <order>100</order>
+                    </DN>
+                    <EL>
+                        <code>EL</code>
+                        <name>Elo</name>
+                        <order>110</order>
+                    </EL>
+                    <GC>
+                        <code>GC</code>
+                        <name>Good Card</name>
+                        <order>120</order>
+                    </GC>
+                    <HC>
+                        <code>HC</code>
+                        <name>Hipercard</name>
+                        <order>130</order>
+                    </HC>
+                    <MC>
+                        <code>MC</code>
+                        <name>MasterCard</name>
+                        <order>140</order>
+                    </MC>
+                    <VI>
+                        <code>VI</code>
+                        <name>Visa</name>
+                        <order>150</order>
+                    </VI>
+                </types>
+            </cc>
+        </payment>
+        <fieldsets>
+             <sales_convert_quote_payment>
+                <cc_parcelas>
+                    <to_order_payment>*</to_order_payment>
+                </cc_parcelas>
+             </sales_convert_quote_payment>
+        </fieldsets>
+        
+        <template>
+            <email>
+                <boleto_email_template translate="label" module="boldcron">
+                    <label>Boleto email sending</label>
+                    <file>boleto_email_template.html</file>
+                    <type>html</type>
+                </boleto_email_template>
+            </email>
+        </template>
+    </global>
+    
+    <frontend>
+        <routers>
+            <boldcron>
+                <use>standard</use>
+                <args>
+                    <module>RedFeet_Boldcron</module>
+                    <frontName>boldcron</frontName>
+                </args>
+            </boldcron>
+        </routers>
+        <layout>
+            <updates>
+                <boldcron>
+                    <file>boldcron.xml</file>
+                </boldcron>                 
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <RedFeet_Boldcron before="Mage_Adminhtml">RedFeet_Boldcron_Adminhtml</RedFeet_Boldcron>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>        
+    </admin>    
+    
+    <!--
+    <crontab>
+        <jobs>
+            <redfeet_boldcron>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr> every 5 minutes 
+                </schedule>
+                <run>
+                    <model>redfeet_boldcron/observer::capture</model>
+                </run>
+            </redfeet_boldcron>
+        </jobs>
+    </crontab>
+    -->
+    
+    <default>
+        <payment>
+            <boldcron>
+                  <model>boldcron/paymentMethod</model>
+                  <title>BoldCron</title>
+                  <cctypes>AE,AU,PC,EX,CB,PA,SE,EP,PL,PE,DN,EL,GC,HC,MC,VI</cctypes>
+            </boldcron>
+         </payment>
+    </default>
+</config>

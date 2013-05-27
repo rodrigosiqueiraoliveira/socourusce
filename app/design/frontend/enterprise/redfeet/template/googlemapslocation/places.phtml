@@ -1,0 +1,339 @@
+<script type="text/javascript">
+	
+/* Correção IE */
+var map1 = '';
+var map2 = '';
+var map3 = '';
+var map4 = '';
+var map5 = '';
+var map6 = '';
+var map7 = '';
+var map8 = '';
+var map9 = '';
+var map10 = '';
+
+if(BrowserDetect.browser == 'Explorer') {
+	map1 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca859900a7778eaa1&amp;ie=UTF8&amp;t=m&amp;ll=-23.639001,-46.766803&amp;spn=0.008335,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca859900a7778eaa1&amp;ie=UTF8&amp;t=m&amp;ll=-23.639001,-46.766803&amp;spn=0.008335,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Estrada Campo Limpo</a> in a larger map</small>';
+	map2 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85db0c69d1fab73&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.572779,-46.652541&amp;spn=0.008339,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85db0c69d1fab73&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.572779,-46.652541&amp;spn=0.008339,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Diadema</a> in a larger map</small>';
+	map3 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85e8f162574dcc2&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.533537,-46.452041&amp;spn=0.008341,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85e8f162574dcc2&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.533537,-46.452041&amp;spn=0.008341,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Itaquera</a> in a larger map</small>';
+	map4 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86065aa1568b9e9&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.532357,-46.778691&amp;spn=0.008341,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86065aa1568b9e9&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.532357,-46.778691&amp;spn=0.008341,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Osasco</a> in a larger map</small>';
+	map5 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca861ab6f1dbcf901&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.565207,-46.690285&amp;spn=0.008339,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca861ab6f1dbcf901&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.565207,-46.690285&amp;spn=0.008339,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Pinheiros 1</a> in a larger map</small>';
+	map6 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca8628ff12b48b3ab&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.566475,-46.692216&amp;spn=0.00417,0.00604&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca8628ff12b48b3ab&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.566475,-46.692216&amp;spn=0.00417,0.00604&amp;z=17" style="color:#0000FF;text-align:left">Socourus - Pinheiros 2</a> in a larger map</small>';
+	map7 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86256e38c6da984&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.651915,-46.707129&amp;spn=0.004167,0.00604&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86256e38c6da984&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.651915,-46.707129&amp;spn=0.004167,0.00604&amp;z=17" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 1</a> in a larger map</small>';
+	map8 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86722f57d7ae8bb&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.652367,-46.706604&amp;spn=0.004167,0.00604&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86722f57d7ae8bb&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.652367,-46.706604&amp;spn=0.004167,0.00604&amp;z=17" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 2</a> in a larger map</small>';
+	map9 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca869485a2df5473a&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.652721,-46.709898&amp;spn=0.008334,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca869485a2df5473a&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.652721,-46.709898&amp;spn=0.008334,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 3</a> in a larger map</small>';
+	map10 = '<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86cd28486396b13&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.581157,-46.643744&amp;spn=0.008338,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86cd28486396b13&amp;ie=UTF8&amp;t=m&amp;source=embed&amp;ll=-23.581157,-46.643744&amp;spn=0.008338,0.012081&amp;z=16" style="color:#0000FF;text-align:left">Socourus - Vila Mariana</a> in a larger map</small>';
+}
+/* Correção IE END; */
+
+function showItem(num){
+	jQuery('.item').hide();
+	
+	/* Correção IE */
+	if(BrowserDetect.browser == 'Explorer') {
+		jQuery('.location-selected-map .'+num).empty();
+		var whichMap = '';
+		switch(num) {
+			case '1': whichMap = map1; break;
+			case '2': whichMap = map2; break;
+			case '3': whichMap = map3; break;
+			case '4': whichMap = map4; break;
+			case '5': whichMap = map5; break;
+			case '6': whichMap = map6; break;
+			case '7': whichMap = map7; break;
+			case '8': whichMap = map8; break;
+			case '9': whichMap = map9; break;
+			case '10': whichMap = map10; break;
+		}
+		jQuery('.location-selected-map .'+num).html(whichMap);
+	}
+	/* Correção IE END; */
+	
+	jQuery('.'+num).show();
+}
+
+function handleIterations(){
+	jQuery('.title').click(function(){
+		var id = jQuery(this).attr('id');
+		showItem(id);
+	});
+}
+	
+jQuery(document).ready(function(){
+	showItem('1');
+	handleIterations();
+});
+</script>
+
+<div id="location-container">
+	<div class="header">
+		<span>NOSSAS LOJAS<span>
+	</div>
+	<div id="location-side-menu">
+		<ul>
+			<li>
+				<div class="sac">
+					<ul>
+						<li class="title">SAC - (11) 3813-5689</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="1" class="title">Campo Limpo</li>
+						<li>Shopping Campo Limpo</li>
+						<li>Estrada do Campo Limpo, 459, Loja 230, 1º Piso</li>
+						<li>Campo Limpo - SP - CEP: 05777-001</li>
+						<li>Tel: (11) 5817 - 9249</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="2" class="title">Diadema</li>
+						<li>Shopping Praça da Moça</li>
+						<li>Rua Manoel da Nobrega, 640, Loja 210, Piso Araucaria</li>
+						<li>Centro - Diadema - CEP: 09910-720</li>
+						<li>Tel: (11) 4057 - 8778</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="3" class="title">Itaquera</li>
+						<li>Shopping Itarequa</li>
+						<li>Av. Jose Pinheiro Borges, S/N, Loja 306, Piso Itaquera</li>
+						<li>Vila Campanela - SP - CEP: 08220-900</li>
+						<li>Tel: (11) 2040 - 3722</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="4" class="title">Osasco</li>
+						<li>Rua Antonio Agu, 574</li>
+						<li>Osasco - SP - CEP: 06093-003</li>
+						<li>Tel: (11) 3681 - 2333</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="5" class="title">Pinheiros 1</li>
+						<li>Rua Teodoro Sampaio, 2295</li>
+						<li>Pinheiros - SP - CEP: 05406-150</li>
+						<li>Tel: (11) 3815 - 8283</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="6" class="title">Pinheiros 2</li>
+						<li>Rua Teodoro Sampaio, 2523</li>
+						<li>Pinheiros - SP - CEP: 05406-200</li>
+						<li>Tel: (11) 3814 - 7978</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="7" class="title">Santo Amaro 1</li>
+						<li>Rua Capitao Tiago Luz, 73</li>
+						<li>Santo Amaro - SP - CEP: 04751-010</li>
+						<li>Tel: (11) 5687 - 2268</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="8" class="title">Santo Amaro 2</li>
+						<li>Rua Senador Jose Bonifacio, 81</li>
+						<li>Santo Amaro - SP - CEP: 04751-020</li>
+						<li>Tel: (11) 5687 - 2268</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="9" class="title">Santo Amaro 3</li>
+						<li>Shopping Mais Largo 13</li>
+						<li>Rua Amador Bueno, 229 - Loja 10602/10603 - Piso Terreo</li>
+						<li>Santo Amaro - SP - CEP: 04752-005</li>						
+						<li>Tel: (11) 5546 - 2660</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="address">
+					<ul>
+						<li id ="10" class="title">Vila Mariana</li>
+						<li>Rua Pelotas, 82</li>
+						<li>Vila Mariana - SP - CEP: 04012-250</li>						
+						<li>Tel: (11) 5084 - 2356</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div id="location-content">	
+		<div class="location-selected-address">
+			<div class="address item 1">
+				<ul>
+					<li class="title">Campo Limpo</li>
+					<li>Shopping Campo Limpo</li>
+					<li>Estrada do Campo Limpo, 459, Loja 230, 1º Piso</li>
+					<li>Campo Limpo - SP - CEP: 05777-001</li>
+					<li>Tel: (11) 5817 - 9249</li>
+				</ul>
+			</div>
+			<div class="address item 2">
+				<ul>
+					<li class="title">Diadema</li>
+					<li>Shopping Praça da Moça</li>
+					<li>Rua Manoel da Nobrega, 640, Loja 210, Piso Araucaria</li>
+					<li>Centro - Diadema - CEP: 09910-720</li>
+					<li>Tel: (11) 4057 - 8778</li>
+				</ul>
+			</div>
+			<div class="address item 3">
+				<ul>
+					<li class="title">Itaquera</li>
+					<li>Shopping Itarequa</li>
+					<li>Av. Jose Pinheiro Borges, S/N, Loja 306, Piso Itaquera</li>
+					<li>Vila Campanela - SP - CEP: 08220-900</li>
+					<li>Tel: (11) 2040 - 3722</li>
+				</ul>
+			</div>
+			<div class="address item 4">
+				<ul>
+					<li class="title">Osasco</li>
+					<li>Rua Antonio Agu, 574</li>
+					<li>Osasco - SP - CEP: 06093-003</li>
+					<li>Tel: (11) 3681 - 2333</li>
+				</ul>
+			</div>
+			<div class="address item 5">
+				<ul>
+					<li class="title">Pinheiros 1</li>
+					<li>Rua Teodoro Sampaio, 2295</li>
+					<li>Pinheiros - SP - CEP: 05406-150</li>
+					<li>Tel: (11) 3815 - 8283</li>
+				</ul>
+			</div>
+			<div class="address item 6">
+				<ul>
+					<li class="title">Pinheiros 2</li>
+					<li>Rua Teodoro Sampaio, 2523</li>
+					<li>Pinheiros - SP - CEP: 05406-200</li>
+					<li>Tel: (11) 3814 - 7978</li>
+				</ul>
+			</div>
+			<div class="address item 7">
+				<ul>
+					<li class="title">Santo Amaro 1</li>
+					<li>Rua Capitao Tiago Luz, 73</li>
+					<li>Santo Amaro - SP - CEP: 04751-010</li>
+					<li>Tel: (11) 5687 - 2268</li>
+				</ul>
+			</div>
+			<div class="address item 8">
+				<ul>
+					<li class="title">Santo Amaro 2</li>
+					<li>Rua Senador Jose Bonifacio, 81</li>
+					<li>Santo Amaro - SP - CEP: 04751-020</li>
+					<li>Tel: (11) 5687 - 2268</li>
+				</ul>
+			</div>
+			<div class="address item 9">
+				<ul>
+					<li class="title">Santo Amaro 3</li>
+					<li>Shopping Mais Largo 13</li>
+					<li>Rua Amador Bueno, 229 - Loja 10602/10603 - Piso Terreo</li>
+					<li>Santo Amaro - SP - CEP: 04752-005</li>						
+					<li>Tel: (11) 5546 - 2660</li>
+				</ul>
+			</div>
+			<div class="address item 10">
+				<ul>
+					<li class="title">Vila Mariana</li>
+					<li>Rua Pelotas, 82</li>
+					<li>Vila Mariana - SP - CEP: 04012-250</li>						
+					<li>Tel: (11) 5084 - 2356</li>
+				</ul>
+			</div>
+		</div>
+		<div class="location-selected-image">
+			<div class="item 1">		
+				<img src="<?php echo $this->getSkinUrl('images/campo_limpo.JPG'); ?>" /> 
+			</div>	
+			<div class="item 2">		
+				<img src="<?php echo $this->getSkinUrl('images/diadema.JPG'); ?>" /> 
+			</div>
+			<div class="item 3">		
+				<img src="<?php echo $this->getSkinUrl('images/itaquera.JPG'); ?>" /> 
+			</div>	
+			<div class="item 4">		
+				<img src="<?php echo $this->getSkinUrl('images/osasco.JPG'); ?>" /> 
+			</div>
+			<div class="item 5">		
+				<img src="<?php echo $this->getSkinUrl('images/pinheiros_1.JPG'); ?>" /> 
+			</div>
+			<div class="item 6">		
+				<img src="<?php echo $this->getSkinUrl('images/pinheiros_2.JPG'); ?>" /> 
+			</div>
+			<div class="item 7">		
+				<img src="<?php echo $this->getSkinUrl('images/santo_amaro_1.JPG'); ?>" /> 
+			</div>
+			<div class="item 8">		
+				<img src="<?php echo $this->getSkinUrl('images/santo_amaro_2.JPG'); ?>" /> 
+			</div>
+			<div class="item 9">		
+				<img src="<?php echo $this->getSkinUrl('images/santo_amaro_3.JPG'); ?>" /> 
+			</div>
+			<div class="item 10">		
+				<img src="<?php echo $this->getSkinUrl('images/vila_mariana.jpg'); ?>" /> 
+			</div>		
+		</div>	
+		<div class="location-selected-map">
+			<div class="item 1">
+			 	<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca859900a7778eaa1&amp;ie=UTF8&amp;t=m&amp;ll=-23.639001,-46.766803&amp;spn=0.008335,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca859900a7778eaa1&amp;ie=UTF8&amp;t=m&amp;ll=-23.639001,-46.766803&amp;spn=0.008335,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Estrada Campo Limpo</a> in a larger map</small>
+			</div>	
+			<div class="item 2">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85db0c69d1fab73&amp;ie=UTF8&amp;t=m&amp;ll=-23.568511,-46.658249&amp;spn=0.008339,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85db0c69d1fab73&amp;ie=UTF8&amp;t=m&amp;ll=-23.568511,-46.658249&amp;spn=0.008339,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Diadema</a> in a larger map</small>
+			</div>
+			<div class="item 3">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85e8f162574dcc2&amp;ie=UTF8&amp;t=m&amp;ll=-23.529386,-46.45792&amp;spn=0.008342,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca85e8f162574dcc2&amp;ie=UTF8&amp;t=m&amp;ll=-23.529386,-46.45792&amp;spn=0.008342,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Itaquera</a> in a larger map</small>
+			</div>
+			<div class="item 4">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86065aa1568b9e9&amp;ie=UTF8&amp;t=m&amp;ll=-23.528205,-46.784635&amp;spn=0.008342,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86065aa1568b9e9&amp;ie=UTF8&amp;t=m&amp;ll=-23.528205,-46.784635&amp;spn=0.008342,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Osasco</a> in a larger map</small>
+			</div>
+			<div class="item 5">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca861ab6f1dbcf901&amp;ie=UTF8&amp;t=m&amp;ll=-23.561017,-46.6961&amp;spn=0.00834,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca861ab6f1dbcf901&amp;ie=UTF8&amp;t=m&amp;ll=-23.561017,-46.6961&amp;spn=0.00834,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Pinheiros 1</a> in a larger map</small>
+			</div>
+			<div class="item 6">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca8628ff12b48b3ab&amp;ie=UTF8&amp;t=m&amp;ll=-23.564351,-46.695092&amp;spn=0.00417,0.00604&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca8628ff12b48b3ab&amp;ie=UTF8&amp;t=m&amp;ll=-23.564351,-46.695092&amp;spn=0.00417,0.00604&amp;z=17&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Pinheiros 2</a> in a larger map</small>
+			</div>
+			<div class="item 7">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86256e38c6da984&amp;ie=UTF8&amp;t=m&amp;ll=-23.64988,-46.710123&amp;spn=0.004167,0.006051&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86256e38c6da984&amp;ie=UTF8&amp;t=m&amp;ll=-23.64988,-46.710123&amp;spn=0.004167,0.006051&amp;z=17&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 1</a> in a larger map</small>
+			</div>
+			<div class="item 8">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86722f57d7ae8bb&amp;ie=UTF8&amp;t=m&amp;ll=-23.650293,-46.709619&amp;spn=0.004167,0.00604&amp;z=17&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86722f57d7ae8bb&amp;ie=UTF8&amp;t=m&amp;ll=-23.650293,-46.709619&amp;spn=0.004167,0.00604&amp;z=17&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 2</a> in a larger map</small>
+			</div>	
+			<div class="item 9">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca869485a2df5473a&amp;ie=UTF8&amp;t=m&amp;ll=-23.648239,-46.716034&amp;spn=0.008334,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca869485a2df5473a&amp;ie=UTF8&amp;t=m&amp;ll=-23.648239,-46.716034&amp;spn=0.008334,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Santo Amaro 3</a> in a larger map</small>
+			</div>
+			<div class="item 10">
+				<iframe width="564" height="424" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86cd28486396b13&amp;ie=UTF8&amp;t=m&amp;ll=-23.577086,-46.649644&amp;spn=0.008339,0.012081&amp;z=16&amp;output=embed"></iframe><br /><small>View <a href="https://maps.google.com/maps/ms?msa=0&amp;msid=211977699875580612845.0004ca86cd28486396b13&amp;ie=UTF8&amp;t=m&amp;ll=-23.577086,-46.649644&amp;spn=0.008339,0.012081&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Socourus - Vila Mariana</a> in a larger map</small>
+			</div>
+		</div>		
+	</div>
+</div>

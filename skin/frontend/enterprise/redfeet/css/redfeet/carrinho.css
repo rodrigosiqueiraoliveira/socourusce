@@ -1,0 +1,885 @@
+button.socourus-btn-continue  {
+    background: none repeat scroll 0 0 #C5C5C5;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    margin-top: 3px;
+    position: relative;
+}
+button.socourus-btn-continue span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 21px;
+    padding: 5px 15px !important;
+}
+
+.cart .socourus-cart-buttons-set button.socourus-btn-checkout {
+    background: none repeat scroll 0 0 #1728C3;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    position: relative;
+}
+.cart .socourus-cart-buttons-set button.socourus-btn-checkout span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 27px;
+    padding: 5px 15px !important;
+    text-transform: uppercase;
+}
+
+/* Carrinho */
+
+.cart {
+    float: left;
+    padding: 0 30px;
+    width: 900px;
+}
+
+.cart .socourus-cart-buttons-set {
+    float: left;
+    padding: 21px 0;
+    width: 100%;
+}
+
+.cart.cart-atacado .socourus-cart-buttons-set {
+    padding: 21px 0 26px;
+}
+
+/* Tabela de Produtos */
+
+.cart .socourus-cart-table-container {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.socourus-cart-table-container .total_atacado {
+    float: left;
+    position: absolute;
+    right: 0;
+    top: -22px;
+}
+.socourus-cart-table-container .total_atacado span {
+    margin: 0 5px 0 0;
+}
+.socourus-cart-table-container .total_atacado span.total-label {
+    color: #F47B20;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+.socourus-cart-table-container .total_atacado span.total-value {
+    color: #666666;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+.socourus-cart-table-container .total_atacado span.total-value .price {
+    
+}
+.socourus-cart-table-container .total_atacado span.total-parcelado {
+    color: #F47B20;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+}
+.socourus-cart-table-container .total_atacado span.total-parcelado .price {
+    color: #666666;
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    margin: 0 0 0 5px;
+}
+
+
+.socourus-cart-table-container form {
+    float: left;
+    width: 100%;
+}
+.socourus-cart-table-container form fieldset {
+    float: left;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table {
+    border: 0 none;
+    float: left;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table thead {
+    background: none repeat scroll 0 0 #F47B20;
+}
+.socourus-cart-table-container .cart-table thead tr {
+    border-left: 1px solid #F47B20;
+}
+.socourus-cart-table-container .cart-table thead tr th {
+    border: 0 none;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: none;
+}
+.socourus-cart-table-container .cart-table thead tr th span {
+    
+}
+.socourus-cart-table-container .cart-table tbody {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr.first {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr.last {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr.odd {
+    background: none repeat scroll 0 0 transparent;
+}
+.socourus-cart-table-container .cart-table tbody tr.even {
+    background: none repeat scroll 0 0 transparent;
+}
+.socourus-cart-table-container .cart-table tbody tr td {
+    border-bottom: 1px solid #F58B3A;
+    border-left: 1px solid #F58B3A;
+}
+.socourus-cart-table-container .cart-table tbody tr.border-row {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr.border-row td {
+    border-bottom: 1px solid #F58B3A;
+    border-left: 0 none !important;
+    border-right: 0 none !important;
+    border-top: 0 none !important;
+    line-height: 7px;
+    padding: 0;
+}
+.socourus-cart-table-container .cart-table tbody tr.last.border-row {
+    display: none;
+}
+.socourus-cart-table-container .cart-table tbody tr.last.border-row td {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr td.last {
+    border: 1px solid #F58B3A;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content {
+    color: #666666;
+    float: left;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-imagem-produto {
+    padding: 0 10px;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-descricao {
+    
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-valor-unitario {
+    float: left;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 25px 0 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 130px;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-valor-unitario .cart-price {
+    float: left;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-valor-unitario .qtde-restante {
+    color: #666666;
+    float: left;
+    font-size: 9px;
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-valor-unitario .qtde-restante span {
+    color: #F47B20;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-quantidade {
+    padding: 25px 10px;
+    width: 60px;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-quantidade input {
+    background: none repeat scroll 0 0 transparent;
+    border: 2px solid #C5C5C5;
+    border-radius: 2px 2px 2px 2px;
+    float: left;
+    height: 16px;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-quantidade a {
+    background: url("../../images/img_carrinho_btn_excluir.png") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 12px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 12px;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content.coluna-subtotal {
+    float: left;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 25px 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+}
+
+
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content .product-name {
+    float: left;
+    padding-top: 15px;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content .product-name a {
+    color: #666666;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+    text-decoration: none;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content .item-options {
+    float: left;
+    width: 100%;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content .item-options dt {
+    background: none repeat scroll 0 0 transparent;
+    clear: both;
+    color: #666666;
+    float: left;
+    margin-right: 5px;
+    padding: 0;
+}
+.socourus-cart-table-container .cart-table tbody tr td .cart-table-cell-content .item-options dd {
+    color: #666666;
+    float: left;
+    font-size: 11px;
+    padding: 0;
+}
+
+
+
+.socourus-cart-table-container .cart-table tfoot {
+    display: none;
+}
+
+
+/* Tabela de Produtos END; */
+
+.cart .socourus-cart-collaterals {
+    float: left;
+    width: 100%;
+}
+
+.cart .socourus-cart-collaterals .cart-collaterals {
+    float: left;
+    padding: 7px 0 10px;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .form-collaterals-container {
+    float: left;
+}
+
+.form-collaterals-container table {
+    float: left;
+    width: 677px;
+}
+.form-collaterals-container table tbody {
+    float: left;
+    width: 100%;
+}
+.form-collaterals-container table tbody tr {
+    border: 1px solid #F47B20;
+    border-right: 0;
+    float: left;
+    height: 56px;
+    width: 676px;
+}
+.form-collaterals-container table tbody tr.last {
+    border-top: 0;
+}
+.form-collaterals-container table tbody tr.first.last {
+    border-top: 1px solid #F47B20;
+}
+.form-collaterals-container table tbody tr td {
+    float: left;
+    width: 100%;
+}
+
+/* C�lculo de Frete */
+
+.form-collaterals-container .shipping {
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.form-collaterals-container .shipping .shipping-form {
+    float: left;
+    padding: 12px 45px 12px 20px;
+    width: 611px;
+}
+.form-collaterals-container .shipping .shipping-form form {
+    float: left;
+    width: 100%;
+}
+.form-collaterals-container .shipping .shipping-form form p {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 30px 0 0;
+}
+.form-collaterals-container .shipping .shipping-form form p span {
+    color: #F47B20;
+}
+.form-collaterals-container .form-list {
+    float: left;
+}
+.form-collaterals-container .form-list li {
+    margin: 0;
+}
+.form-collaterals-container .form-list li label {
+    
+}
+.form-collaterals-container .form-list li .input-box {
+    
+}
+.form-collaterals-container .form-list li .input-box.validation-passed {
+    background: none repeat scroll 0 0 transparent;
+    padding: 0;
+}
+.form-collaterals-container .form-list li .input-box.validation-error {
+    background: none repeat scroll 0 0 transparent;
+    padding: 0;
+}
+.form-collaterals-container .form-list li .input-box input {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px 0 0 3px;
+    height: 15px;
+    padding: 7px;
+    width: 120px;
+}
+.form-collaterals-container .shipping .buttons-set {
+    clear: none;
+    float: left;
+    margin: 0;
+    width: auto;
+}
+.form-collaterals-container .shipping .buttons-set button.socourus-btn-postcode {
+    background: none repeat scroll 0 0 #C5C5C5;
+    border-radius: 0 5px 5px 0;
+    float: left;
+    margin: 0;
+    position: relative;
+}
+.form-collaterals-container .shipping .buttons-set button.socourus-btn-postcode span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 5px 15px 5px 10px;
+    text-align: center;
+}
+.form-collaterals-container .shipping .buttons-set button.socourus-btn-postcode:active {
+    bottom: 0;
+    right: 0;
+}
+.form-collaterals-container .shipping .link-postcode {
+    float: left;
+    margin: 7px 0 0 15px;
+}
+.form-collaterals-container .shipping .link-postcode a {
+    color: #F47B20;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* C�lculo de Frete END; */
+
+/* Cupons */
+
+.form-collaterals-container .discount {
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.form-collaterals-container .discount form {
+    float: left;
+    width: 100%;
+}
+.form-collaterals-container .discount .discount-form {
+    float: left;
+    padding: 12px 15px 12px 20px;
+    width: 641px;
+}
+.form-collaterals-container .discount .discount-form label {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 30px 0 0;
+}
+.form-collaterals-container .discount .discount-form .input-box {
+    float: left;
+}
+.form-collaterals-container .discount .discount-form .input-box.validation-passed {
+    background: none repeat scroll 0 0 transparent;
+    padding: 0;
+}
+.form-collaterals-container .discount .discount-form .input-box.validation-error {
+    background: none repeat scroll 0 0 transparent;
+    padding: 0;
+}
+.form-collaterals-container .discount .discount-form .input-box input {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #FED966;
+    border-radius: 3px 0 0 3px;
+    height: 15px;
+    padding: 7px;
+    width: 240px;
+}
+.form-collaterals-container .discount .buttons-set {
+    clear: none;
+    float: left;
+    margin: 0;
+    width: auto;
+}
+.form-collaterals-container .discount .buttons-set button.socourus-btn-discount {
+    background: none repeat scroll 0 0 #FEBF00;
+    border-radius: 0 5px 5px 0;
+    float: left;
+    margin: 0;
+    position: relative;
+}
+.form-collaterals-container .discount .buttons-set button.socourus-btn-discount span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 21px;
+    padding: 5px 15px 5px 10px;
+    text-align: center;
+}
+.form-collaterals-container .discount .buttons-set button.socourus-btn-discount:active {
+    bottom: 0;
+    right: 0;
+}
+
+/* Cupons END; */
+
+/* Cart Info */
+
+.form-collaterals-container table tfoot {
+    float: left;
+    width: 100%;
+}
+.form-collaterals-container table tfoot tr {
+    /*border: 1px solid #F47B20;*/
+    /*border-right: 0;*/
+    float: left;
+    /*height: 56px;*/
+    width: 677px;
+}
+.form-collaterals-container table tfoot tr.last {
+    /*border-top: 0;*/
+}
+.form-collaterals-container table tfoot tr td {
+    border-right: 14px solid #DA791B;
+    float: left;
+    height: 77px;
+    width: 663px;
+}
+
+.cart-atacado .form-collaterals-container table tfoot tr td {
+    border-right: 14px solid #F47B20;
+}
+
+.socourus-cart-info {
+    float: right;
+    height: 53px;
+    padding: 12px 0;
+    width: 100%;
+}
+.socourus-cart-info .socourus-cart-info-title {
+    color: #F47B20;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+}
+.socourus-cart-info .socourus-cart-info-desc {
+    color: #666666;
+    float: left;
+    font-size: 10px;
+    font-weight: bold;
+    width: 100%;
+}
+.socourus-cart-info .socourus-cart-info-left {
+    float: left;
+    width: 220px;
+}
+.socourus-cart-info .socourus-cart-info-left .socourus-cart-info-left-left {
+    float: left;
+    height: 36px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 38px;
+}
+.socourus-cart-info .socourus-cart-info-left .socourus-cart-info-left-right {
+    float: left;
+    margin-top: 4px;
+    width: 170px;
+}
+.socourus-cart-info .socourus-cart-info-mid {
+    float: left;
+    width: 200px;
+}
+.socourus-cart-info .socourus-cart-info-mid .socourus-cart-info-mid-left {
+    float: left;
+    height: 36px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 38px;
+}
+.socourus-cart-info .socourus-cart-info-mid .socourus-cart-info-mid-right {
+    float: left;
+    width: 150px;
+}
+.socourus-cart-info .socourus-cart-info-right {
+    float: left;
+    width: 220px;
+}
+.socourus-cart-info .socourus-cart-info-right .socourus-cart-info-right-left {
+    float: left;
+    height: 36px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 38px;
+}
+.socourus-cart-info .socourus-cart-info-right .socourus-cart-info-right-right {
+    float: left;
+    margin-top: 4px;
+    width: 170px;
+}
+
+/* Cart Info END; */
+
+/* Totals */
+
+.cart .socourus-cart-collaterals .cart-collaterals .totals {
+    float: right;
+    padding: 0;
+    width: 223px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table {
+    float: left;
+    width: 223px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody {
+    float: left;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr {
+    border-left: 1px solid #F47B20;
+    border-right: 1px solid #F47B20;
+    border-top: 1px solid #F47B20;
+    float: left;
+    height: 56px;
+    width: 221px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr.last {
+    border-bottom: 1px solid #F47B20;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr td {
+    float: left;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-title-shipping {
+    background: none repeat scroll 0 0 #C5C5C5;
+    border-right: 1px solid #F47B20;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px !important;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 90px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-value-shipping {
+    color: #666666;
+    float: left;
+    font-size: 12px !important;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 129px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-title-discount {
+    background: none repeat scroll 0 0 #FEBF00;
+    border-right: 1px solid #F47B20;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px !important;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 90px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-value-discount {
+    color: #666666;
+    float: left;
+    font-size: 12px !important;
+    font-weight: bold;
+    height: 19px;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 129px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot {
+    float: left;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr {
+    float: left;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr td {
+    float: left;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr td strong {
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-title-grand_total {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #F47B20;
+    border-left: 1px solid #F47B20;
+    border-right: 1px solid #F47B20;
+    color: #DA791B;
+    float: left;
+    font-size: 18px !important;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 90px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-title-grand_total strong {
+    color: #DA791B;
+    font-size: 18px !important;
+    font-weight: bold;
+    line-height: 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+}
+.cart.cart-atacado .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-title-grand_total strong {
+    color: #F47B20;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-value-grand_total {
+    color: #666666;
+    border-bottom: 1px solid #F47B20;
+    border-right: 1px solid #F47B20;
+    float: left;
+    font-size: 18px !important;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 18px 0 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+    width: 130px;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-value-grand_total strong {
+    color: #666666;
+    font-size: 18px !important;
+    font-weight: bold;
+    line-height: 19px;
+    text-align: center !important;
+    text-transform: uppercase;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-content-parcelas {
+    border: 1px solid #DA791B;
+    border-top: 0;
+    color: #DA791B;
+    float: left;
+    font-size: 14px !important;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 0;
+    text-align: center !important;
+    width: 221px;
+}
+.cart.cart-atacado .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-content-parcelas {
+    border: 1px solid #F47B20;
+    border-top: 0;
+    color: #F47B20;
+}
+.cart .socourus-cart-collaterals .cart-collaterals .totals table tfoot tr .total-content-parcelas span {
+    color: #666666;
+}
+
+/* Totals END; */
+
+/* Modal C�lculo Frete */
+
+.ajax-container {
+    height: 24px;
+    margin: 50px auto 0;
+    text-align: center;
+    width: 24px;
+}
+#ajax-custom-loader {
+    background: url("../../images/ajax-loader-custom.gif") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 24px;
+    width: 24px;
+}
+
+.ui-widget-overlay {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+}
+.ui-dialog-titlebar {
+    float: left;
+    margin: 5px 0;
+    width: 100%;
+}
+.ui-dialog-title {
+    color: #F47B20;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-left: 50px;
+    text-transform: uppercase;
+    width: 250px;
+}
+.ui-dialog-titlebar-close {
+    color: #F47B20;
+    float: right;
+    line-height: 20px;
+    margin-right: 5px;
+    text-align: right;
+    width: 45px;
+}
+
+.modal-calculo-frete {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #F47B20;
+    float: left;
+    position: fixed !important;
+    top: 200px !important;
+}
+
+#modal-calcular-frete {
+    padding: 5px;
+    /*position: relative;*/
+}
+#modal-calcular-frete form {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods dt {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods dd {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods dd ul {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods dd ul li {
+    float: left;
+    width: 100%;
+}
+#modal-calcular-frete form .sp-methods dd ul li input {
+    
+}
+#modal-calcular-frete form .sp-methods dd ul li label {
+    
+}
+#modal-calcular-frete form .sp-methods dd ul li label span {
+    
+}
+#modal-calcular-frete form .buttons-set {
+    bottom: 10px;
+    float: left;
+    margin: 0;
+    position: absolute;
+    right: 10px;
+}
+
+#modal-calcular-frete .buttons-set button.socourus-btn-postcode {
+    background: none repeat scroll 0 0 #C5C5C5;
+    border-radius: 5px 5px 5px 5px;
+    float: right;
+    margin: 0;
+}
+#modal-calcular-frete .buttons-set button.socourus-btn-postcode span {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 5px 15px 5px 10px;
+    text-align: center;
+}
+
+/* Modal C�lculo Frete END; */
+
+/* Carrinho END; */
+
+/* Newsletter */
+
+.footer-newsletter .box-newsletter form .form-subscribe {
+    /*margin-left: 20px;*/
+}
+
+/* Newsletter END; */

@@ -1,0 +1,18 @@
+.amconf-image
+{
+    padding: 3px;
+    margin-right: 5px; margin-bottom: 5px;
+/*    float: left;*/
+}
+
+.amconf-image-selected
+{
+    padding: 0px;
+    border: 3px solid #eaff00;
+}
+
+.amconf-images-container
+{
+    width: 100%;
+    clear: both;
+}

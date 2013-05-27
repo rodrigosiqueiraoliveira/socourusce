@@ -1,0 +1,205 @@
+<?php
+ /**
+ * GoMage Advanced Navigation Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 3.0
+ * @since        Class available since Release 1.0
+ */
+?>
+<?php if($this->canShowBlock()): ?>
+<?php 
+	$content_area = Mage::getStoreConfig('gomage_navigation/general/show_shopby') == GoMage_Navigation_Model_Adminhtml_System_Config_Source_Shopby::CONTENT;
+	$gan_bcontent_hide = 'true' === $this->getRequest()->getParam('gan_bcontent_hide'); 
+?>
+<div class="block block-layered-nav gomage-navigation-slider-type-<?php echo $this->getSliderType();?> gomage-navigation-icons-<?php echo $this->getIconStyle();?><?php if ($content_area): ?> gan-content-area<?php endif; ?>">
+	<?php /* ?>
+    <div class="block-title">
+        <strong>
+        	<span><?php echo $this->__('Shop By') ?></span>
+        	<?php if ($content_area): ?>
+        		<a href="javascript:void(0);" onclick="ganSHBlockContent(this);" class="gan-hide-link"><?php if ($content_area && $gan_bcontent_hide): ?><?php echo $this->__('Show') ?><?php else: ?><?php echo $this->__('Hide') ?><?php endif; ?></a>
+        	<?php endif; ?>
+        </strong>
+    </div>
+    <?php */ ?>
+	<div class="block-content<?php if ($content_area && $gan_bcontent_hide): ?> gan-hidden<?php endif; ?>" id="gan-block-content" <?php if ($content_area && $gan_bcontent_hide): ?>style="display:none;"<?php endif; ?> >
+        <?php echo $this->getStateHtml() ?>
+        <?php if($this->canShowOptions()): ?>
+		<?php /* ?>
+		<p class="block-subtitle">
+    			<span><?php echo $this->__('Shopping Options') ?></span>
+    			
+    			<?php if(count($this->getActiveFilters()) > 0):?>
+    				<?php if (Mage::helper('gomage_navigation')->isGomageNavigationAjax()): ?>
+    					<button class="button" onclick="setNavigationUrl('<?php echo urlencode($this->getClearUrl(true));?>'); return false;"><span><span><?php echo $this->__('Clear All') ?></span></span></button>
+    				<?php else: ?>
+    					<button class="button" onclick="setLocation('<?php echo $this->getClearUrl();?>')"><span><span><?php echo $this->__('Clear All') ?></span></span></button>
+    				<?php endif; ?>	
+    			
+    			<?php endif;?>
+    		</p>
+    		<?php */ ?>
+            <div id="narrow-by-list">
+                <?php $_filters = $this->getFilters() ?>
+                <?php foreach ($_filters as $_filter):                 	
+                	$filter_id = 'advancednavigation-filter-content-'.$_filter->_filter->getRequestVar();
+			
+		if($_filter->getItemsCount()):
+			
+			if($_filter->canShowPopup()) {
+				$note_content = trim($_filter->getPopupText());
+				if(strlen($note_content)) {
+					$styles = '';	    	                    		
+    	                    		if($content_width = $_filter->getPopupWidth()){	    	                    			
+    	                    			$styles .= "width:{$content_width}px;";	    	                    			
+    	                    		}
+    	                    		if($content_height = $_filter->getPopupHeight()){	    	                    			
+    	                    			$styles .= "height:{$content_height}px;";	    	                    			
+    	                    		} ?>
+					<div id="filter-<?php echo $_filter->getPopupId();?>-note-content" class="filter-note-content" <?php if($styles):?> style="<?php echo $styles;?>" <?php endif;?>>
+					<?php echo nl2br($note_content);?>
+					</div>
+    				<?php } ?>
+			<?php } ?>
+                	<dl class="gan-attribute gan-attribute-<?php echo $_filter->_filter->getRequestVar(); ?>">	                    	                	                	                	
+				<dt onclick="navigationOpenFilter('<?php echo $_filter->_filter->getRequestVar();?>');">
+					<span class="filter-name"><?php echo $this->__($_filter->getName()) ?></span>
+					<?php if($_filter->_filter->getRequestVar() != 'cat') { ?>
+					<div class="category-item-custom-border">&nbsp;</div>
+					<?php } ?>
+					<?php if($_filter->canShowPopup()):?>
+													
+						<?php if(strlen($note_content)):?>
+						
+						<span class="filter-note-handle" onmouseout="hideNavigationNote();" onmouseover="showNavigationNote('filter-<?php echo $_filter->getPopupId();?>-note-content', this)">?</span>
+										
+						<?php endif;?>
+					
+					<?php endif;?>
+				</dt>
+				<dd id="<?php echo $filter_id;?>" <?php if($_filter->canShowMinimized()){?> style="display:none;" <?php } ?> >
+				
+				<?php if ($_filter->canShowResetFirler()): ?>
+				    <?php $_filter_reset =  $this->getResetFirlerUrl($_filter, $_filter->ajaxEnabled()); ?>
+				    <?php if ($_filter_reset): ?>
+					 <a href="<?php echo $_filter_reset; ?>" <?php if ($_filter->ajaxEnabled()): ?>onclick="setNavigationUrl('<?php echo urlencode($_filter_reset); ?>'); return false;"<?php endif; ?> >Reset</a>
+				    <?php endif; ?>
+				<?php endif; ?>
+				
+				
+				<?php echo $_filter->getHtml() ?>					
+				</dd>
+			</dl>
+			<?php if($_filter->_filter->getRequestVar() == 'cat') { ?>
+				<div class="box-filtrar-por">
+					<span>Filtrar por:</span>
+				</div>
+			<?php } ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            </div>            
+        <?php endif; ?>
+	</div>
+    
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			var activeCat = '<?php echo $_GET['cat']; ?>';
+			var menuGomage = jQuery('#advancednavigation-filter-content-cat');
+			var htmlLv2 = '<dt class="category-item-menu @disablerClass"><div class="category-item" @relCatDiv><span class="category">@descLevel2</span><div class="category-item-custom-border">&nbsp;</div></div></dt>';
+			var lvAnterior = '-1';
+			
+			var htmlSubCatAntes = '<dd class="subcategory-list" style="display: block;"><ul>';
+			var htmlSubCatDepois = '</ul>';
+			if(menuGomage.find('li').size() > 0) {
+				menuGomage.append('<dl id="menu-lateral" class="menu-lateral"></dl>');
+				jQuery('#menu-lateral').hide();
+				var menuLateralNovo = jQuery('#menu-lateral');
+				var htmlCommit = '';
+				menuGomage.find('li').each(function(){
+					var anterior = jQuery(this).prev('li');
+					var proximo = jQuery(this).next('li');
+					var ultimo = false;
+					if(jQuery(this).is(':last-child')) {
+						ultimo = true;
+					}
+					
+					if(identificaLevel(jQuery(this)) == 2) {
+						var disabler = '';
+						if(ultimo || identificaLevel(jQuery(proximo)) == 2) {
+							disabler = 'disabled';
+						}
+						menuLateralNovo.append(htmlLv2.replace('@descLevel2',jQuery(this).find('.category-label').text()).replace('@disablerClass', disabler).replace('@relCatDiv', 'rel="'+jQuery(this).find('a').attr('rel')+'"'));
+					}
+					if((identificaLevel(jQuery(this)) == 3 || identificaLevel(jQuery(this)) == 4) && identificaLevel(jQuery(anterior)) == 2) {
+						htmlCommit = htmlCommit.concat(htmlSubCatAntes);
+					}
+					
+					if(identificaLevel(jQuery(this)) == 3 || identificaLevel(jQuery(this)) == 4) {
+						var addLvClass = 'item-level-'+identificaLevel(jQuery(this));
+						htmlCommit = htmlCommit.concat('<li class="'+addLvClass+'">'+jQuery(this).html()+'</li>');
+					}
+					
+					if((identificaLevel(jQuery(this)) == 3 || identificaLevel(jQuery(this)) == 4) && identificaLevel(jQuery(proximo)) == 2) {
+						//htmlCommit += htmlSubCatDepois;
+						htmlCommit = htmlCommit.concat(htmlSubCatDepois);
+						menuLateralNovo.append(htmlCommit);
+						htmlCommit = '';
+					}
+				});
+				
+				var allPanels = jQuery('.menu-lateral > dd').hide();
+				
+				jQuery('.menu-lateral > dt').click(function() {
+					if(!jQuery(this).hasClass('disabled') && !jQuery(this).hasClass('active')){
+						allPanels.slideUp();
+						jQuery('.menu-lateral dt.active').removeClass('active');
+						jQuery(this).addClass('active');
+						jQuery(this).next().slideDown();
+					}
+				});
+				
+				menuGomage.find('ol').remove();
+				//decorateDataList('menu-lateral');
+				decorateGeneric($$('.menu-lateral dt'));
+				decorateGeneric($$('.menu-lateral dd'));
+				
+				jQuery('.subcategory-list').each(function(){
+				    decorateList(jQuery(this).find('ul li'));
+				});
+				
+				if(activeCat != '') {
+					var currentCatObj;
+					if(jQuery('a[rel="'+activeCat+'"]').size() > 0) {
+						currentCatObj = jQuery('a[rel="'+activeCat+'"]').closest('.subcategory-list').prev('dt.category-item-menu');
+					}
+					else {
+						currentCatObj = jQuery('.category-item[rel="'+activeCat+'"]').closest('dt.category-item-menu');
+					}
+					jQuery('.menu-lateral > dd').hide();
+					jQuery('.menu-lateral dt.active').removeClass('active');
+					if(!currentCatObj.hasClass('disabled')) {
+						jQuery(currentCatObj).addClass('active');
+						jQuery(currentCatObj).next().show();
+					}
+					jQuery('#menu-lateral').slideDown();
+				}
+				jQuery('#menu-lateral').show();
+			}
+		});
+		
+		function identificaLevel(obj){
+			if(jQuery(obj).hasClass('item-level-2')) return 2;
+			if(jQuery(obj).hasClass('item-level-3')) return 3;
+			if(jQuery(obj).hasClass('item-level-4')) return 4;
+			return 0;
+		}
+	    
+		decorateDataList('menu-lateral');
+	</script>
+</div>
+<?php endif; ?>

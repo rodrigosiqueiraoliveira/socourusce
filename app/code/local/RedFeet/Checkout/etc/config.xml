@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_Checkout>
+            <version>0.1.0</version>
+        </RedFeet_Checkout>
+    </modules>
+    <global>
+		<blocks>
+			<checkout>
+				<rewrite>
+					<cart_totals>RedFeet_Checkout_Block_Cart_Totals</cart_totals>
+					<cart_shipping_estimate>RedFeet_Checkout_Block_Cart_Shipping_Estimate</cart_shipping_estimate>
+				</rewrite>
+			</checkout>
+		</blocks>
+    </global>
+</config>

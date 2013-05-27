@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RedFeet_Customer>
+            <version>0.1.0</version>
+        </RedFeet_Customer>
+    </modules>
+    <global>
+        <models>
+            <customer>
+                <rewrite>
+                    <address>RedFeet_Customer_Model_Address</address>
+                </rewrite>
+            </customer>
+        </models>
+    </global>
+</config>

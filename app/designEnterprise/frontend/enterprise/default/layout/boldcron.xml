@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_success translate="label">
+        <block type="checkout/onepage_success" name="checkout.success" template="boldcron/checkout/success.phtml"/>
+    </checkout_onepage_success>
+</layout>

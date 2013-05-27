@@ -1,0 +1,44 @@
+<div class="home-main-container">
+    <div class="home-col-top">
+	<?php echo $this->getChildHtml('qbanner'); ?>
+    </div>
+    <div class="home-col-bot">
+	<div class="carrossel-marcas-container">
+	    <button id="marcas-next" class="next">&nbsp;</button>
+	    <button id="marcas-prev" class="prev">&nbsp;</button>
+	    <div class="lista-imagens-oculto" style="display: none">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home_imagens_marcas')->toHtml(); ?>
+	    </div>
+	    <div id="carrossel-marcas">
+		<ul class="lista-imagens"></ul>
+	    </div>
+	</div>
+	<script type="text/javascript">
+	    jQuery('.lista-imagens-oculto img').each(function(){
+		var htmlLI = '<li class="item-lista-marca"></li>';
+		//jQuery('#carrossel-marcas .lista-imagens').append(htmlLI.replace('@img', jQuery(this)));
+		jQuery('#carrossel-marcas .lista-imagens').append(htmlLI);
+		jQuery(this).attr('width', '133');
+		jQuery(this).attr('height', '25');
+		if(jQuery(this).attr('alt') != '') {
+		    jQuery(this).click(function(){
+			setLocation(jQuery(this).attr('alt'));
+		    });
+		    jQuery(this).css('cursor','pointer');
+		}
+		
+		jQuery('#carrossel-marcas .lista-imagens li:last-child').append(jQuery(this));
+	    });
+	    jQuery('.lista-imagens-oculto').remove();
+	    
+	    jQuery(document).ready(function(){
+		jQuery('#carrossel-marcas').jCarouselLite({
+		    btnNext: "#marcas-next",
+		    btnPrev: "#marcas-prev",
+		    visible: 5,
+		    start: 0
+		});
+	    });
+	</script>
+    </div>
+</div>

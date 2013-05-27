@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <adminhtml_sales_order_view_tab_info translate="label">
+        <block type="adminhtml/sales_order_view_tab_info" name="order_tab_info" template="boldcron/sales/order/view/tab/info.phtml"/>
+    </adminhtml_sales_order_view_tab_info>
+    
+</layout>

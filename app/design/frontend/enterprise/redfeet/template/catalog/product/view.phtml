@@ -1,0 +1,314 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_customer = Mage::helper('customer')->getCustomer(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="product-view">
+    <?php if($_customer->getGroupId() == 4) { ?>
+    <div id="product-view-form-container" class="product-view-form-container"></div>
+    <?php } ?>
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+        <div class="product-essential <?php if($_customer->getGroupId() == 4) echo "options-container-atacado"; ?>">
+            <div class="product-essential-left">
+                <div class="product-img-box">
+                    <?php echo $this->getChildHtml('media') ?>
+                </div>
+            </div>
+            <div class="product-essential-right">
+                <div class="product-essential-right-top">
+                    <div class="product-shop">
+                        <div class="product-main-info">
+                            <div class="product-brand-image">
+                                <?php $brandImg = Mage::helper('catalog/category')->getBrandImgUrl($_product->getId()); ?>
+                                <?php if($brandImg != ''){ ?>
+                                    <div class="product-brand">
+                                        <img width="125" height="40" src="<?php echo $brandImg; ?>"/>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="product-name">
+                                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                            </div>
+                            <div class="product-sku">
+                                <span><?php echo $this->__('SKU: %s', $this->htmlEscape($_product->getSku())); ?></span>
+                            </div>
+                            <p class="product-ids"><?php echo $this->__('SKU# %s', $this->htmlEscape($_product->getSku())); ?></p>
+                            <?php echo $this->getReviewsSummaryHtml($_product, 'product_view', true); ?>
+                            <?php if($this->helper('customer')->isLoggedIn()) { ?>
+                                <script type="text/javascript">
+                                    jQuery('.comment-forwarder').click(function(){
+                                        jQuery('.tab-reviews').click();
+                                        var target = jQuery('.tab-reviews');
+                                        if (target.length)
+                                        {
+                                            var top = target.offset().top;
+                                            jQuery('html,body').animate({scrollTop: top}, 200);
+                                        }
+                                    });
+                                </script>
+                            <?php }
+                            else {
+                                Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->helper('core/url')->getCurrentUrl());
+                                ?>
+                                <script type="text/javascript">
+                                    jQuery('.comment-forwarder').click(function(){
+                                        setLocation('<?php echo $this->getUrl("customer/account/login"); ?>');
+                                    });
+                                </script>    
+                            <? } ?>
+                            <?php echo $this->getChildHtml('product_social_network'); ?>
+                            <?php echo $this->getChildHtml('alert_urls'); ?>
+                            <?php //echo $this->getChildHtml('product_type_data'); ?>
+                        </div>
+                        <?php //echo $this->getChildHtml('tierprices'); ?>
+                        <?php echo $this->getChildHtml('extrahint'); ?>
+    
+                        <?php if ($_product->getShortDescription()):?>
+                            <div class="short-description std">
+                                <h2><?php echo $this->__('Quick Overview') ?></h2>
+                                <?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
+                            </div>
+                        <?php endif;?>
+    
+                        <?php echo $this->getChildHtml('other');?>
+                    </div>
+                    <div class="socourus-product-info">
+                        <div class="socourus-product-info-top">
+                            <div class="socourus-product-info-top-left">
+                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_imagem')->toHtml(); ?>
+                            </div>
+                            <div class="socourus-product-info-top-right">
+                                <div class="socourus-product-info-title">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_titulo')->toHtml(); ?>
+                                </div>
+                                <div class="socourus-product-info-desc">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_descricao')->toHtml(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="socourus-product-info-mid">
+                            <div class="socourus-product-info-mid-left">
+                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_imagem')->toHtml(); ?>
+                            </div>
+                            <div class="socourus-product-info-mid-right">
+                                <div class="socourus-product-info-title">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_titulo')->toHtml(); ?>
+                                </div>
+                                <div class="socourus-product-info-desc">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_descricao')->toHtml(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="socourus-product-info-bot">
+                            <div class="socourus-product-info-bot-left">
+                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_imagem')->toHtml(); ?>
+                            </div>
+                            <div class="socourus-product-info-bot-right">
+                                <div class="socourus-product-info-title">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_titulo')->toHtml(); ?>
+                                </div>
+                                <div class="socourus-product-info-desc">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_descricao')->toHtml(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="product-essential-right-bot">
+                    <?php if (!$this->hasOptions()):?>
+                        <div class="add-to-box">
+                            <?php if($_product->isSaleable()): ?>
+                                <?php echo $this->getChildHtml('addtocart'); ?>
+                            <?php endif; ?>
+                            <?php //echo $this->getChildHtml('addto') ?>
+                        </div>
+                    <?php else:?>
+                        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container1') ):?>
+                            <div class="options-container-small">
+                                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                            </div>
+                        <?php else: ?>
+                            <?php //echo $this->getChildHtml('addto') ?>
+                        <?php endif;?>
+                    <?php endif; ?>
+                    
+                    <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+                        <div class="options-container-big">
+                            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                        </div>
+                    <?php endif;?>
+                </div>
+            
+            </div>
+        </div>
+        <div class="clearer"></div>
+        <?php /* if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+            <div class="options-container-big">
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            </div>
+        <?php endif; */ ?>
+    </form>
+    <div class="product-collateral socourus-product-collateral">
+        <?php
+        if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml', true)) {
+            $rearrangedGroups = $this->rearrangeGroups($detailedInfoGroup, 'detailed_info'); ?>
+            <dl id="collateral-tabs" class="collateral-tabs">
+            <?php foreach ($rearrangedGroups as $groupedTabKey => $groupedTab) { ?>
+                <dt class="tab tab-<?php echo $groupedTabKey; ?>"><span><?php echo $groupedTab["label"]; ?></span></dt>
+                <dd class="tab-container">
+                   <div class="tab-content">
+                    <?php
+                        if ($groupedTabKey != 'reviews' || $this->helper('customer')->isLoggedIn()) {
+                            foreach ($groupedTab["groups"] as $alias => $html) { ?>
+                                <div class="tab-content-container tab-content-<?php echo $alias; ?>">
+                                    <?php echo $html; ?>
+                                </div>
+                            <?php }
+                        }
+                        else { ?>
+                            <p>Para deixar algum coment&aacute;rio fa&ccedil;a o login clicando <a href="<?php echo Mage::getBaseUrl() ?>customer/account/login/">aqui</a></p>
+                        <? } ?>
+                    </div>
+                </dd>
+            <?php } ?>
+            </dl>
+            <script type="text/javascript">
+                jQuery('#collateral-tabs .tab-container .tab-content').each(function(){
+                    decorateGeneric(jQuery(this).find('.tab-content-container'), ['first', 'last']);
+                });
+                new Enterprise.Tabs('collateral-tabs');
+            </script>
+        <?php } ?>
+        <?php /* if ($this->canEmailToFriend()): ?>
+            <p class="emailto-link"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+        <?php endif; */ ?>
+    </div>
+    
+    <?php /* ?>
+        <?php echo $this->getChildHtml('relatedProducts') ?>
+        <?php echo $this->getChildHtml('upsell_products') ?>
+        <?php echo $this->getChildHtml('productTagList') ?>
+        <?php echo $this->getChildHtml('product_additional_data') ?>
+    <?php */ ?>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var productAddToCartForm = new VarienForm('product_addtocart_form');
+    productAddToCartForm.submit = function(button, url) {
+        if (this.validator.validate()) {
+            var form = this.form;
+            var oldUrl = form.action;
+
+            if (url) {
+               form.action = url;
+            }
+            var e = null;
+            try {
+                this.form.submit();
+            } catch (e) {
+            }
+            this.form.action = oldUrl;
+            if (e) {
+                throw e;
+            }
+
+            if (button && button != 'undefined') {
+                button.disabled = true;
+            }
+        }
+    }.bind(productAddToCartForm);
+
+    productAddToCartForm.submitLight = function(button, url){
+        if(this.validator) {
+            var nv = Validation.methods;
+            delete Validation.methods['required-entry'];
+            delete Validation.methods['validate-one-required'];
+            delete Validation.methods['validate-one-required-by-name'];
+            if (this.validator.validate()) {
+                if (url) {
+                    this.form.action = url;
+                }
+                this.form.submit();
+            }
+            Object.extend(Validation.methods, nv);
+        }
+    }.bind(productAddToCartForm);
+    
+    function loadPage(f) {
+        var id_produto = f.id_produto.value;
+        var cor = f.cor.value;
+        var tam = f.tam.value;
+        var qty = f.qtyy.value;
+        
+        jQuery.ajax({
+            type: "POST",
+            url: '<?php echo $this->getUrl(); ?>sessioncart/loadfields/getFields',
+            data: {
+                id_produto : id_produto, cor : cor, tam : tam, qty : qty
+            },
+            beforeSend: function() {
+                //ajaxLoadOverlay();
+                //html = '<img src="../../skin/frontend/default/redfeet/images/ajax-loader.gif" />';
+                //html += 'Carregando...';
+                //jQuery('#loader').html(html);
+            },
+            complete: function() {				
+                html = '';
+                jQuery('#loader').html(html);
+            },
+            success: function(resp) {
+                jQuery('loadFields').html(resp);
+            }
+        });
+    }
+    
+    function atualizaQtdeProduto(obj){
+	if(jQuery(obj).val() != ''){
+	    var qtyInput = jQuery('.form-'+jQuery(obj).attr('rel')).find('#qtyy');
+	    qtyInput.val(jQuery(obj).val());
+	    qtyInput.trigger('blur');
+	}
+    }
+//]]>
+</script>

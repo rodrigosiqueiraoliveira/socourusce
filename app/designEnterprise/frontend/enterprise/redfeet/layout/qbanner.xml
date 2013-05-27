@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="header">
+            <block type="qbanner/qbanner" name="qbanner.top"  template="qaz/qbanner/qbanner.after.header.phtml" />
+        </reference>
+        <reference name="content">
+            <block type="qbanner/qbanner" name="qbanner" before="-" template="qaz/qbanner/qbanner.content.top.phtml" />
+        </reference>
+    </default>
+</layout> 

@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Madia Adyen Payment Module
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category	Madia
+ * @package	Madia_Adyen
+ * @copyright	Copyright (c) 2012 Madia (http://www.madia.nl)
+ * @license	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Payment Gateway
+ * @package    Madia_Adyen
+ * @author     Omar,Muhsin <info@madia.nl>
+ * @property   Madia B.V
+ * @copyright  Copyright (c) 2012 Madia BV (http://www.madia.nl)
+ */
+-->
+<config>
+    <modules>
+        <Madia_Adyen>
+            <version>0.1.0.12</version>
+        </Madia_Adyen>
+    </modules>
+    <global>
+        <models>
+            <adyen>
+                <class>Madia_Adyen_Model</class>
+                <resourceModel>adyen_mysql4</resourceModel>
+            </adyen>
+            <adyen_mysql4>
+                <class>Madia_Adyen_Model_Mysql4</class>
+                <entities>
+                    <api_debug>
+                        <table>adyen_api_debug</table>
+                    </api_debug>
+                    <event>
+                        <table>adyen_event_data</table>
+                    </event>
+                </entities>
+            </adyen_mysql4>
+        </models>
+        <helpers>
+            <adyen>
+                <class>Madia_Adyen_Helper</class>
+            </adyen>
+        </helpers>
+        <resources>
+            <adyen_setup>
+                <setup>
+                    <module>Madia_Adyen</module>
+                    <class>Madia_Adyen_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </adyen_setup>
+            <adyen_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </adyen_write>
+            <adyen_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </adyen_read>
+        </resources>
+        <blocks>
+            <adyen>
+                <class>Madia_Adyen_Block</class>
+            </adyen>
+        </blocks>
+        <payment>
+            <groups>
+                <adyen>Adyen</adyen>
+            </groups>
+        </payment>        
+    </global>
+    
+    <frontend>
+        <secure_url>
+            <adyen_process>/adyen/process</adyen_process>
+        </secure_url>
+        <routers>
+            <adyen>
+                <use>standard</use>
+                <args>
+                    <module>Madia_Adyen</module>
+                    <frontName>adyen</frontName>
+                </args>
+            </adyen>
+        </routers>
+        <translate>
+            <modules>
+                <Madia_Adyen>
+                    <files>
+                        <default>Madia_Adyen.csv</default>
+                    </files>
+                </Madia_Adyen>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <adyen>
+                    <file>adyen.xml</file>
+                </adyen>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <adyen>
+                    <file>adyen.xml</file>
+                </adyen>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Madia_Adyen>
+                    <files>
+                        <default>Madia_Adyen.csv</default>
+                    </files>
+                </Madia_Adyen>
+            </modules>
+        </translate>
+        <events>
+            <sales_order_invoice_pay>
+                <observers>
+                    <adyen_manual_online_capture>
+                        <class>adyen/observer</class>
+                        <method>capture</method>
+                    </adyen_manual_online_capture>
+                </observers>
+            </sales_order_invoice_pay>
+            <sales_order_creditmemo_refund>
+                <observers>
+                    <adyen_online_refund>
+                        <class>adyen/observer</class>
+                        <method>refund</method>
+                    </adyen_online_refund>
+                </observers>
+            </sales_order_creditmemo_refund>                      
+        </events>
+    </adminhtml>
+    <default>
+        <payment>
+            <adyen_abstract>
+                <active>0</active>
+                <model>adyen/adyen_dummy</model>
+                <title>Adyen Default</title>
+                <currency>EUR</currency>
+                <logofilename></logofilename>
+                <secret_wordt></secret_wordt>
+                <secret_wordp></secret_wordp>
+                <delivery_days>14</delivery_days>
+                <ws_username_test></ws_username_test>
+                <ws_password_test></ws_password_test>
+                <ws_username_live></ws_username_live>
+                <ws_password_live></ws_password_live>
+                <demoMode>N</demoMode>
+                <order_status>processing</order_status>
+                <payment_pending>pending</payment_pending>
+                <payment_authorized>processing</payment_authorized>
+                <allowspecific>0</allowspecific>
+                <capture_mode>auto</capture_mode>      		
+            </adyen_abstract>
+            <adyen_hpp>
+                <customer_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <currency>EUR</currency>
+                <model>adyen/adyen_hpp</model>
+                <title>Adyen HPP</title>
+                <logofilename></logofilename>
+                <secret_wordt></secret_wordt>
+                <secret_wordp></secret_wordp>
+                <delivery_days>14</delivery_days>
+                <ws_username_test></ws_username_test>
+                <ws_password_test></ws_password_test>
+                <ws_username_live></ws_username_live>
+                <ws_password_live></ws_password_live>
+                <order_status>processing</order_status>
+                <payment_pending>pending</payment_pending>
+                <payment_authorized>processing</payment_authorized>
+                <allowspecific>0</allowspecific>
+                <disable_hpptypes>0</disable_hpptypes>
+            </adyen_hpp>
+            <adyen_openinvoice translate="title" module="adyen">
+                <active>0</active>
+                <model>adyen/adyen_openinvoice</model>
+                <group>adyen</group>
+                <order_status>pending</order_status>
+                <title>Adyen Open Invoice</title>
+            </adyen_openinvoice>  
+            <adyen_cc translate="title" module="adyen">
+                <active>0</active>
+                <model>adyen/adyen_cc</model>
+                <group>adyen</group>
+                <order_status>processing</order_status>
+                <title>Adyen Credit Card</title>
+                <debug>0</debug>
+                <useccv>1</useccv>
+                <account_id>99999</account_id>
+                <trxuser_id>99999</trxuser_id>
+                <trxuser_password>0</trxuser_password>
+                <adminaction_password>5cfgRT34xsdedtFLdfHxj7tfwx24fe</adminaction_password>
+                <wsdl>https://pal-test.adyen.com/pal/Payment.wsdl</wsdl>
+            </adyen_cc>
+            <adyen_elv translate="title" module="adyen">
+                <active>0</active>
+                <model>adyen/adyen_elv</model>
+                <group>adyen</group>
+                <order_status>processing</order_status>
+                <title>Adyen ELV</title>
+            </adyen_elv>             
+        </payment>  
+        <madia>
+            <adyen>
+                <cctypes>
+                    <AE>
+                        <code>AE</code>
+                        <name>American Express</name>
+                        <order>0</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </AE>
+                    <VI>
+                        <code>VI</code>
+                        <name>Visa</name>
+                        <order>10</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </VI>
+                    <MC>
+                        <code>MC</code>
+                        <name>Master Card</name>
+                        <order>20</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </MC>
+                    <DI>
+                        <code>DI</code>
+                        <name>Discover</name>
+                        <order>30</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </DI>
+                    <DC>
+                        <code>DC</code>
+                        <name>Diners Club</name>
+                        <order>40</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </DC>
+                    <SS>
+                        <code>SS</code>
+                        <name>Switch/Solo</name>
+                        <order>50</order>
+                        <is_cvv_required>1</is_cvv_required>
+                    </SS>
+                    <MO>
+                        <code>MO</code>
+                        <name>Maestro</name>
+                        <order>60</order>
+                        <is_cvv_required>0</is_cvv_required>
+                    </MO>
+                    <JC>
+                        <code>JC</code>
+                        <name>JCB</name>
+                        <order>70</order>
+                        <is_cvv_required>0</is_cvv_required>
+                    </JC>
+                    <CB>
+                        <code>CB</code>
+                        <name>CarteBleue</name>
+                        <order>80</order>
+                        <is_cvv_required>0</is_cvv_required>
+                    </CB>
+                </cctypes>          
+                <hpptypes>
+                    <ideal>
+                        <code>ideal</code>
+                        <name>iDeal</name>
+                        <order>0</order>
+                    </ideal>
+                    <visa>
+                        <code>visa</code>
+                        <name>Visa</name>
+                        <order>10</order>
+                    </visa>
+                    <amex>
+                        <code>amex</code>
+                        <name>Amex</name>
+                        <order>15</order>
+                    </amex>                         
+                    <mc>
+                        <code>mc</code>
+                        <name>Master Card</name>
+                        <order>20</order>
+                    </mc>
+                    <bankTransfer_NL>
+                        <code>bankTransfer_NL</code>
+                        <name>Dutch Banktransfer</name>
+                        <order>30</order>
+                    </bankTransfer_NL>
+                    <bankTransfer_DE>
+                        <code>bankTransfer_DE</code>
+                        <name>German Banktransfer</name>
+                        <order>40</order>
+                    </bankTransfer_DE>
+                    <elv>
+                        <code>elv</code>
+                        <name>ELV</name>
+                        <order>50</order>
+                    </elv>
+                    <directdebit_NL>
+                        <code>directdebit_NL</code>
+                        <name>Direct Debit (Netherlands)</name>
+                        <order>60</order>
+                    </directdebit_NL>
+                    <directEbanking>
+                        <code>directEbanking</code>
+                        <name>SofortUberweisung</name>
+                        <order>70</order>
+                    </directEbanking>
+                    <paypal>
+                        <code>paypal</code>
+                        <name>PayPal</name>
+                        <order>80</order>
+                    </paypal>
+                    <dineromail>
+                        <code>dineromail</code>
+                        <name>DineroMail</name>
+                        <order>90</order>
+                    </dineromail>
+                    <moneybookers>
+                        <code>moneybookers</code>
+                        <name>Moneybookers</name>
+                        <order>100</order>
+                    </moneybookers> 
+                    <bcmc>
+                        <code>bcmc</code>
+                        <name>Mister Cash</name>
+                        <order>110</order>
+                    </bcmc> 
+                    <dotpay>
+                        <code>dotpay</code>
+                        <name>Dotpay</name>
+                        <order>120</order>
+                    </dotpay>
+                    <ebanking_FI>
+                        <code>ebanking_FI</code>
+                        <name>Suomen Verkkomaksut / eBanking (Finland)</name>
+                        <order>130</order>
+                    </ebanking_FI>
+                    <giropay>
+                        <code>giropay</code>
+                        <name>GiroPay</name>
+                        <order>140</order>
+                    </giropay>
+                    <paysafecard>
+                        <code>paysafecard</code>
+                        <name>Paysafecard</name>
+                        <order>150</order>
+                    </paysafecard>
+                    <openinvoice>
+                        <code>openinvoice</code>
+                        <name>Open Invoice</name>
+                        <order>160</order>
+                    </openinvoice>                    
+                </hpptypes>
+            </adyen> 
+        </madia>     
+    </default>
+</config>

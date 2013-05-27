@@ -1,0 +1,285 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+<?php $_customer = $this->getCustomer(); ?>
+<div class="cart <?php echo ($_customer->getGroupId() == 4 ? 'cart-atacado' : ''); ?>">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="checkout-steps socourus-checkout-steps">
+        <!--<div class="page-title title-buttons">
+            <h1><?php echo $this->__('Shopping Cart') ?></h1>
+        </div>-->
+        <div class="socourus-checkout-step">
+            <span>&nbsp;</span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-1 active">
+            <span>
+                <span>Meu Carrinho</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-2">
+            <span>
+                <span>Entrega e Pagamento</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step socourus-checkout-step-3">
+            <span>
+                <span>Pedido Finalizado</span>
+            </span>
+        </div>
+        <div class="socourus-checkout-step">
+            <span><span>&nbsp;</span></span>
+        </div>
+        <script type="text/javascript">
+            decorateGeneric(jQuery('.socourus-checkout-steps .socourus-checkout-step'), ['first','last']);
+        </script>
+    </div>
+    
+    <div class="socourus-cart-buttons-set">
+        <?php if($this->getContinueShoppingUrl()): ?>
+            <button type="button" title="<?php echo $this->__('Continue shopping') ?>" class="button btn-continue socourus-btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><?php echo $this->__('Continue shopping') ?></span></button>
+        <?php endif; ?>
+        
+        <?php if(!$this->hasError()): ?>
+        <ul class="checkout-types">
+        <?php foreach ($this->getMethods('top_methods') as $method): ?>
+            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php echo $methodHtml; ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+    </div>
+    
+    <div class="socourus-cart-table-container">
+        <?php if($_customer->getGroupId() == 4) {
+            echo $this->getChildHtml('totals_atacado');
+        } ?>
+        <?php echo $this->getChildHtml('form_before') ?>
+        <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+            <fieldset>
+                <table id="shopping-cart-table" class="data-table cart-table">
+                    <!-- Produto -->
+                    <col width="1" />
+                    
+                    <!-- Descri??o -->
+                    <col />
+                    
+                    <!-- Editar -->
+                    <!--<col width="1" />-->
+                    
+                    <!-- Wishlist -->
+                <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                    <col width="1" />
+                <?php endif */ ?>
+                
+                    <!-- Valor Unit?rio -->
+                <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                    <col width="1" />
+                <?php endif; ?>
+                <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                    <col width="1" />
+                <?php endif; ?>
+                
+                    <!-- Quantidade -->
+                    <col width="1" />
+                    
+                    <!-- Subtotal -->
+                <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                    <col width="1" />
+                <?php endif; ?>
+                <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                    <col width="1" />
+                <?php endif; ?>
+                
+                    <!-- Remover item -->
+                    <!--<col width="1" />-->
+    
+                <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                    <thead>
+                        <tr>
+                            <!-- Produto -->
+                            <th class="a-center" rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product') ?></span></th>
+                            <!-- Descri??o -->
+                            <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Description') ?></span></th>
+                            
+                            <!-- Editar -->
+                            <!--<th rowspan="<?php //echo $mergedCells; ?>"></th>-->
+                            
+                            <!-- Wishlist -->
+                            <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                            <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
+                            <?php endif */ ?>
+                            
+                            <!-- Valor Unit?rio -->
+                            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Unit Price') ?></span></th>
+                            
+                            <!-- Qtde -->
+                            <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
+                            <!-- Subtotal -->
+                            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+                            <!-- Remover item -->
+                            <!--<th rowspan="<?php //echo $mergedCells; ?>" class="a-center">&nbsp;</th>-->
+                        </tr>
+                        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                        <tr>
+                            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                            <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                            <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                        </tr>
+                        <?php endif; ?>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="50" class="a-right">
+                                <button type="submit" title="<?php echo $this->__('Update Shopping Cart') ?>" class="button btn-update"><span><span><?php echo $this->__('Update Shopping Cart') ?></span></span></button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    <?php foreach($this->getItems() as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+            </fieldset>
+        </form>
+    </div>
+    
+    <div class="socourus-cart-collaterals">
+        <div class="cart-collaterals">
+            <div class="form-collaterals-container">
+                <table>
+                    <col />
+                    <col width="1" />
+                    <tbody>
+                        <tr>
+                            <td>
+                                <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+                            </td>
+                        </tr>
+                        <?php //echo "<BR>customer group: ".$this->getCustomer()->getGroupId(); ?>
+                        <?php if($this->getCustomer()->getGroupId() != 4) { ?>
+                        <tr><td><?php echo $this->getChildHtml('coupon') ?></td></tr>
+                        <?php } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <div class="socourus-cart-info">
+                                    <div class="socourus-cart-info-left">
+                                        <div class="socourus-cart-info-left-left">
+                                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_imagem')->toHtml(); ?>
+                                        </div>
+                                        <div class="socourus-cart-info-left-right">
+                                            <div class="socourus-cart-info-title">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_titulo')->toHtml(); ?>
+                                            </div>
+                                            <div class="socourus-cart-info-desc">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_reembolso_total_descricao')->toHtml(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="socourus-cart-info-mid">
+                                        <div class="socourus-cart-info-mid-left">
+                                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_imagem')->toHtml(); ?>
+                                        </div>
+                                        <div class="socourus-cart-info-mid-right">
+                                            <div class="socourus-cart-info-title">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_titulo')->toHtml(); ?>
+                                            </div>
+                                            <div class="socourus-cart-info-desc">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_frete_gratis_descricao')->toHtml(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="socourus-cart-info-right">
+                                        <div class="socourus-cart-info-right-left">
+                                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_imagem')->toHtml(); ?>
+                                        </div>
+                                        <div class="socourus-cart-info-right-right">
+                                            <div class="socourus-cart-info-title">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_titulo')->toHtml(); ?>
+                                            </div>
+                                            <div class="socourus-cart-info-desc">
+                                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('diferencial_parcelamento_descricao')->toHtml(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="totals">
+                <!-- JQuery para corre??o do layout no IE no fim desse phtml; -->
+                <?php echo $this->getChildHtml('totals'); ?>
+            </div>
+        </div>
+    </div>
+    
+    <div class="socourus-cart-buttons-set">
+        <?php if($this->getContinueShoppingUrl()): ?>
+            <button type="button" title="<?php echo $this->__('Continue shopping') ?>" class="button btn-continue socourus-btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><?php echo $this->__('Continue shopping') ?></span></button>
+        <?php endif; ?>
+        
+        <?php if(!$this->hasError()): ?>
+        <ul class="checkout-types">
+        <?php foreach ($this->getMethods('top_methods') as $method): ?>
+            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php echo $methodHtml; ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+    </div>
+    <?php //echo $this->getChildHtml('socourus_sac'); ?>
+    <script type="text/javascript">
+	decorateGeneric($$('.form-collaterals-container tbody tr'), ['first', 'last']);
+	decorateGeneric($$('.totals tbody tr'), ['first', 'last']);
+        
+        jQuery(document).ready(function(){
+            if(BrowserDetect.browser == 'Explorer') {
+                jQuery('.form-collaterals-container table tbody tr').css('width', '677px');
+                jQuery('.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr').css('width', '223px');
+                jQuery('.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr').css('height', '55px');
+                jQuery('.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr.last').css('height', '57px');
+                
+                jQuery('.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-title-discount').css('height', '18px');
+                jQuery('.cart .socourus-cart-collaterals .cart-collaterals .totals table tbody tr .total-value-discount').css('height', '18px');
+            }
+        });
+    </script>
+</div>
